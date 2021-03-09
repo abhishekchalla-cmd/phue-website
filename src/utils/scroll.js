@@ -1,0 +1,1 @@
+export const getScrollPos = () => window.pageYOffset || document.documentElement.scrollTop;
