@@ -6,7 +6,6 @@ import CoreValues from "./index/CoreValues";
 import BlankBox from "../components/BlankBox";
 
 const IndexPage = () => {
-  window.counter = 0;
   return <div className="flex">
     <div className="w-sidebar">
       <Sidebar />
@@ -17,7 +16,7 @@ const IndexPage = () => {
       <Hero />
 
       
-      <ParallaxComponent defaultTop={300} duration={window.innerHeight}>
+      <ParallaxComponent defaultTop={300} duration={typeof window !== 'undefined' && window.innerHeight}>
         <div className="z-2 standard-container top-0 left-0 pv5 h-100v bg-light">
             <div className="subcontainer flex-ns">
                 <div className="w-50">

@@ -1,1 +1,1 @@
-export const getScrollPos = () => window.pageYOffset || document.documentElement.scrollTop;
+export const getScrollPos = () => (typeof window !== 'undefined' && window.pageYOffset) || (document && document.documentElement.scrollTop);
