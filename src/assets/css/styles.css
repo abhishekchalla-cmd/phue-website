@@ -7,6 +7,10 @@
     --skyBlue: rgb(84, 211, 250);
 }
 
+body {
+    overflow-x: hidden;
+}
+
 .h-100v {
     height: 100vh;
 }

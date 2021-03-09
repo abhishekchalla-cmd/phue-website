@@ -76,7 +76,7 @@ export default function GarmentsSection(props) {
                             'you fucking fucking'
                         ]} current={item} scrollLength={typeof window !== 'undefined' && window.innerHeight} />
                     </div>
-                    <div classname="w-40 relative flex items-center justify-center">
+                    <div className="w-40 relative flex items-center justify-center">
                         {items.map((_item, index) => <GarmentItem item={_item} current={item} selected={index === item} index={index} />)}
                     </div>
                 </div>
