@@ -125,3 +125,33 @@
     opacity: 0;
     transform: scale(0.9);
 }
+
+.gallery-item {
+    transition: 0.2s;
+    color: #fff;
+    overflow: hidden;
+}
+
+.gallery-item.invisible {
+    /* transform: scaleX(0); */
+    width: 0;
+}
+
+.gallery-item.visible {
+    /* transform: scaleX(1); */
+    width: 100%;
+}
+
+.gallery-right-item {
+    position: absolute;
+    bottom: 0;
+    transition: 0.2s;
+}
+
+.gallery-right-item.unselected {
+    opacity: 0;
+}
+
+.gallery-right-item.selected {
+    opacity: 1;
+}

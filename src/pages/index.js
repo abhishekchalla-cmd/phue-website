@@ -2,8 +2,9 @@ import React from "react"
 import Sidebar from "../components/sidebar"
 import ParallaxComponent from '../components/parallax';
 import Hero from "./index/Hero";
-import CoreValues from "./index/CoreValues";
+import StickyComponent from "../components/StickyComponent";
 import BlankBox from "../components/BlankBox";
+import GarmentsSection from './index/GarmentsSection';
 
 const IndexPage = () => {
   return <div className="flex">
@@ -16,7 +17,7 @@ const IndexPage = () => {
       <Hero />
 
       
-      <ParallaxComponent defaultTop={300} duration={typeof window !== 'undefined' && window.innerHeight}>
+      <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && window.innerHeight}>
         <div className="z-2 standard-container top-0 left-0 pv5 h-100v bg-light">
             <div className="subcontainer flex-ns">
                 <div className="w-50">
@@ -44,7 +45,7 @@ const IndexPage = () => {
 
 
       <div className="h-100v"></div>
-      <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ position: 'fixed' }}>
+      <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ width: 'calc(100vw - 60px)', position: 'fixed' }}>
         <div className="subcontainer flex-ns">
           <div className="w-50">
             <h1>What we offer</h1>
@@ -103,14 +104,52 @@ const IndexPage = () => {
         </div>
       </div>
 
-      
-      <CoreValues />
+      <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-sky-blue" style={{ marginTop: '-100vh' }}>
+        <div className="subcontainer">
+            <h1>Core values</h1>
+            <div className="flex">
+                <div className="w-33">
+                    <BlankBox />
+                </div>
+                <div className="w-33">
+                    <BlankBox />
+                </div>
+                <div className="w-33">
+                    <BlankBox />
+                </div>
+            </div>
+        </div>
+      </StickyComponent>
 
-      <div className="standard-container pv5 bg-white z-2">
+      <div className="standard-container pv5 bg-white z-2" style={{ minHeight: '100vh' }}>
         <div className="subcontainer">
           <div className="flex">
             <div className="w-60">
-              <BlankBox />
+              <BlankBox backgroundColor="#333" />
+            </div>
+            <div className="w-40 ml3">
+              <h1>Consumer</h1>
+              <div className="bg-blur pa4 br5">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+              </div>
+            </div>
+          </div>
+
+          <div className="flex">
+            <div className="w-60">
+              <BlankBox backgroundColor="#333" />
+            </div>
+            <div className="w-40 ml3">
+              <h1>Consumer</h1>
+              <div className="bg-blur pa4 br5">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+              </div>
+            </div>
+          </div>
+
+          <div className="flex">
+            <div className="w-60">
+              <BlankBox backgroundColor="#333" />
             </div>
             <div className="w-40 ml3">
               <h1>Consumer</h1>
@@ -121,6 +160,24 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
+
+      <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-dark" style={{ marginTop: '-100vh' }}>
+        <div className="subcontainer flex">
+          <div className="w-50 pr3">
+            <h1 className="white">Nostos</h1>
+            <div className="bg-blur pa4 br5">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+            </div>
+          </div>
+
+          <div className="w-50">
+            <BlankBox backgroundColor="#444" />
+          </div>
+        </div>
+      </StickyComponent>
+
+
+      <GarmentsSection />
 
 
       <div className="fixed z-7" style={{ bottom: '40px', right: '60px' }}>
