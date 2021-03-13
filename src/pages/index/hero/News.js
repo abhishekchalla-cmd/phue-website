@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Skewer from '../../../components/Skewer';
 
 const transitionPeriod = 300;
+let timeout;
 
-export default function News(props) {
+const News = props => {
 
     const [news, setNews] = useState([
         {
@@ -26,37 +28,44 @@ export default function News(props) {
     ]);
     const [index, setIndex] = useState(0);
 
-    const NewsCard = props => {
-        const [title, setTitle] = useState('');
-        const [subtitle, setSubtitle] = useState('');
-        const [link, setLink] = useState('');
-        const [coverImage, setCoverImage] = useState('');
-        const [isNavigationDisabled, setIsNavigationDisabled] = useState(false);
+    const [title, setTitle] = useState('');
+    const [subtitle, setSubtitle] = useState('');
+    const [link, setLink] = useState('');
+    const [coverImage, setCoverImage] = useState('');
+    const [isNavigationDisabled, setIsNavigationDisabled] = useState(false);
+    const [enableAnimation, setEnableAnimation] = useState(false);
 
-        const cardRef = useRef(null);
+    const cardRef = useRef(null);
 
-        const changeCard = diff => {
-            diff = index + diff;
-            diff = diff % news.length;
-            if (diff < 0) diff = news.length - (-1 * diff) - 1;
-            cardRef.current.classList.add('disappear');
-            setTimeout(() => setIndex(diff), transitionPeriod);
-            setIsNavigationDisabled(true);
+    const changeCard = diff => {
+        diff = index + diff;
+        diff = diff % news.length;
+        if (diff < 0) diff = news.length - (-1 * diff) - 1;
+        cardRef.current.classList.add('disappear');
+        clearTimeout(timeout);
+        timeout = setTimeout(() => setIndex(diff), transitionPeriod);
+        setIsNavigationDisabled(true);
+    }
+
+    useEffect(() => {
+        console.log('index changed');
+        if (news[index]) {
+            let { title, subtitle, link, coverImage } = news[index];
+            setTitle(title);
+            setSubtitle(subtitle);
+            setLink(link);
+            setCoverImage(coverImage);
+            setEnableAnimation(true);
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                setEnableAnimation(false);
+                setIsNavigationDisabled(false)
+            }, transitionPeriod);
         }
-    
-        useEffect(() => {
-            if (news[index]) {
-                let { title, subtitle, link, coverImage } = news[index];
-                setTitle(title);
-                setSubtitle(subtitle);
-                setLink(link);
-                setCoverImage(coverImage);
-                cardRef.current.classList.remove('disappear');
-                setTimeout(() => setIsNavigationDisabled(false), transitionPeriod);
-            }
-        }, [index])
-    
-        return <div ref={cardRef} className="appear relative w-80v center flex items-center news-card" style={{ transition: (transitionPeriod / 1000) + 's' }}>
+    }, [index])
+
+    return <Skewer>
+        <div ref={cardRef} className={"relative w-80v center flex items-center news-card " + (enableAnimation ? 'appear-animation' : '')} style={{ transition: (transitionPeriod / 1000) + 's' }}>
             <img className="absolute top-0 left-0 bg-light" style={{ minHeight: '100%', minWidth: '100%', width: 'auto', zIndex: '-1' }} src={coverImage} />
             <div className="pl5">
                 <h1>{title}</h1>
@@ -68,11 +77,7 @@ export default function News(props) {
                 <button onClick={() => changeCard(1)}><span uk-icon="icon: chevron-right" disabled={isNavigationDisabled} /></button>
             </div>
         </div>
-    }
-
-    return <>
-        {news.length > index && <NewsCard
-            key={index}
-        />}
-    </>
+    </Skewer>
 }
+
+export default News;

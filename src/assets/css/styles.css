@@ -122,7 +122,10 @@ body {
     overflow: hidden;
     border-radius: 30px;
     box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
-    animation: pop 0.3s ease-out;
+}
+
+.appear-animation {
+    animation: pop 0.2s ease-out;
 }
 
 .news-card.disappear {
