@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import IntersectionComponent from '../../components/IntersectionComponent';
-import { StickyScrollerContext } from '../../contexts/StickyScrollerContext';
-import { getScrollPos } from '../../utils/scroll';
+import IntersectionComponent from './IntersectionComponent';
+import { StickyScrollerContext } from '../contexts/StickyScrollerContext';
+import { getScrollPos } from '../utils/scroll';
 
 export default function StickySlider(props) {
     

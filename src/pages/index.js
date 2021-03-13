@@ -4,7 +4,7 @@ import ParallaxComponent from '../components/parallax';
 import Hero from "./index/Hero";
 import StickyComponent from "../components/StickyComponent";
 import BlankBox from "../components/BlankBox";
-import StickySlider from './index/StickySlider';
+import StickySlider from '../components/StickySlider';
 import Gallery from '../components/Gallery';
 import Layout from '../components/Layout';
 

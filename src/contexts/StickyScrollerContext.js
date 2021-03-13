@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+// const defaultValues = { registerEvent: () => {} };
+
 export const StickyScrollerContext = React.createContext();
 
 export default function StickyScrollerContextProvider(props) {
