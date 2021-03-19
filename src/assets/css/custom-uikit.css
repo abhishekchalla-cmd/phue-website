@@ -1,3 +1,9 @@
 .uk-input {
     width: 300px;
 }
+
+.uk-button {
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #444;
+}

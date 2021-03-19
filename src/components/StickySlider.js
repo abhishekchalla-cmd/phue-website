@@ -19,7 +19,7 @@ export default function StickySlider(props) {
             let totalScroll = divisions * ((typeof window !== 'undefined' && window.innerHeight) || 900);
             let fraction = (scroll - initialScroll) / totalScroll;
             fraction = Math.floor(fraction * divisions);
-            if (fraction < divisions || fraction > -1) onChange(fraction === -1 ? 0 : fraction);
+            if ((fraction < divisions || fraction > -1) && onChange) onChange(fraction === -1 ? 0 : fraction);
         });
     }, [initialScroll]);
 
@@ -33,7 +33,7 @@ export default function StickySlider(props) {
         }}
     >
         <div className="standard-container z-2" ref={containerRef} style={{ transition: '1s', height: (divisions * 100 + 90) + 'vh', backgroundColor }}>
-            <div className="top-0 bottom-0 h-100v w-100 bg-white pa5 flex items-center justify-center" style={{ position: 'sticky' }}>
+            <div className="top-0 bottom-0 h-100v w-100 bg-white flex items-center justify-center" style={{ position: 'sticky' }}>
                 {children}
             </div>
         </div>

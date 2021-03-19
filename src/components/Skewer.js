@@ -9,7 +9,7 @@ export default function Skewer(props) {
     const [rotateX, setRotateX] = useState(0);
     const [rotateY, setRotateY] = useState(0);
 
-    const angle = 5;
+    const angle = props.angle || 5;
 
     const containerRef = useRef(null);
 
@@ -30,10 +30,11 @@ export default function Skewer(props) {
 
     return <div ref={containerRef} onPointerMove={e => handlePointerMove(e)} style={{
         perspective: '1000px'
-    }}>
+    }} className={props.className}>
         <div style={{
             transform: 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)',
-            transformStyle: 'preserve-3d'
+            transformStyle: 'preserve-3d',
+            width: '100%'
         }}>
             {props.children}
         </div>

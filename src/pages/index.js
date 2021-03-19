@@ -7,6 +7,7 @@ import BlankBox from "../components/BlankBox";
 import StickySlider from '../components/StickySlider';
 import Gallery from '../components/Gallery';
 import Layout from '../components/Layout';
+import Skewer from "../components/Skewer";
 
 const GarmentLeftItem = props => {
   return <div className="w-100 pa2">
@@ -94,51 +95,69 @@ const IndexPage = () => {
         <Hero />
 
         
-        <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && window.innerHeight}>
-          <div className="z-2 standard-container top-0 left-0 pv5 h-100v bg-light">
-              <div className="subcontainer flex-ns">
-                  <div className="w-50">
-                    <h1>About us</h1>
-                    <div className="br4 bg-white tc pa4 shadowed">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris... 
-                      </p>
-                      <div className="flex center justify-center w-100">
-                        <span uk-icon="icon: instagram; ratio: 2" className="uk-icon-button pa2 mh2"></span>
-                        <span uk-icon="icon: facebook; ratio: 2" className="uk-icon-button pa2 mh2"></span>
-                        <span uk-icon="icon: twitter; ratio: 2" className="uk-icon-button pa2 mh2"></span>
-                        <span uk-icon="icon: whatsapp; ratio: 2" className="uk-icon-button pa2 mh2"></span>
+        <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && (window.innerHeight)}>
+          <StickySlider divisions={1}>
+            <div className="z-2 standard-container top-0 left-0 pv5 h-100v overflow-y-hidden shadowed-down"> 
+                <div className="absolute top-0 left-0 w-100v h-100v">
+                  <img src={require('../assets/images/white-print.png')} className="w-100" />
+                </div>
+                <div className="h-100v w-100v absolute flex items-center justify-center">
+                  <div className="subcontainer flex-ns">
+                      <div className="w-50">
+                        <div className="w-80">
+                          <h1>About us</h1>
+                          <div className="br4 bg-white tc pa4 shadowed">
+                            <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris... 
+                            </p>
+                            <div className="flex center justify-center w-100">
+                              <span uk-icon="icon: instagram; ratio: 2" className="uk-icon-button pa2 mh2"></span>
+                              <span uk-icon="icon: facebook; ratio: 2" className="uk-icon-button pa2 mh2"></span>
+                              <span uk-icon="icon: twitter; ratio: 2" className="uk-icon-button pa2 mh2"></span>
+                              <span uk-icon="icon: whatsapp; ratio: 2" className="uk-icon-button pa2 mh2"></span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="w-50">
-                    <div className="bg-dark ml3 h-100 w-100 br4" />
+                      <div className="w-50">
+                        <Skewer className="w-100" angle={10}>
+                          <div className="ml3 br4">
+                            <img src={require('../assets/images/about-us.png')} className="banner-image" />
+                          </div>
+                        </Skewer>
+                      </div>
                   </div>
-              </div>
-          </div>
+                </div>
+            </div>
+          </StickySlider>
         </ParallaxComponent>
 
 
 
         <div className="h-100v"></div>
         <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ width: 'calc(100vw - 60px)', position: 'fixed' }}>
-          <div className="subcontainer flex-ns">
-            <div className="w-50">
-              <h1>What we offer</h1>
-              <div className="bg-blur br4 pa4 mv4">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris... 
-                </p>
+          <div className="absolute left-0 top-0 h-100 w-100">
+            <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
+          </div>
+          <div className="w-100v h-100v left-0 top-0 absolute z-2 flex items-center justify-center">
+            <div className="subcontainer flex-ns">
+              <div className="w-50">
+                <h1>What we offer</h1>
+                <div className="bg-blur br4 pa4 mv4">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris... 
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="w-50">
-              <div className="bg-white ml3 h-100 w-100 br4" />
+              <div className="w-50">
+                <div className="bg-white ml3 h-100 w-100 br4" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="standard-container pv5 bg-white z-2">
+        <div className="standard-container pv5 bg-white z-2 shadowed-up">
           <div className="subcontainer">
             <h1>Value proposition</h1>
             
@@ -181,8 +200,8 @@ const IndexPage = () => {
           </div>
         </div>
 
-        <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-sky-blue" style={{ marginTop: '-100vh' }}>
-          <div className="subcontainer">
+        <StickyComponent className="z-3 standard-container pv5 h-100v top-0 right-0 z-1 bg-sky-blue">
+          <div id="of-core-values" className="subcontainer">
               <h1>Core values</h1>
               <div className="flex">
                   <div className="w-33">

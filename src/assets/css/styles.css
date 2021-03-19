@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&display=swap');
+
 :root {
     --text-color: #444;
     --light: #bbb;
@@ -9,6 +11,11 @@
 
 body {
     overflow-x: hidden;
+}
+
+h1 {
+    font-family: big shoulders display;
+    text-transform: uppercase;
 }
 
 .h-100v {
@@ -92,6 +99,10 @@ body {
     max-width: 1200px;
 }
 
+.standard-container h1 {
+    font-size: 70px;
+}
+
 .w-sidebar {
     width: 60px;
 }
@@ -133,6 +144,15 @@ body {
     transform: scale(0.9);
 }
 
+.news-card h1 {
+    font-size: 80px;
+}
+
+.news-card .uk-button {
+    background: transparent;
+    border: 1px solid #333;
+}
+
 .gallery-item {
     transition: 0.2s;
     color: #fff;
@@ -161,4 +181,45 @@ body {
 
 .gallery-right-item.selected {
     opacity: 1;
+}
+
+.search-container {
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    display: inline-block;
+}
+
+.search-container input {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.6);
+    color: #222;
+    border-top-left-radius: 10px;
+    border: 0;
+    border-bottom-left-radius: 10px;
+}
+
+.search-container input::placeholder {color: #444}
+
+.search-container input:focus {
+    background: rgba(255, 255, 255, 0.9);
+    outline: 1px solid transparent;
+}
+
+.search-container button {
+    height: 40px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0;
+    width: 60px;
+}
+
+.shadowed-down {
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3)
+}
+
+.shadowed-up {
+    box-shadow: 0px -10px 30px rgba(0,0,0,0.3);
+}
+
+.banner-image {
 }

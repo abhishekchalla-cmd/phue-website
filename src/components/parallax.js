@@ -39,7 +39,7 @@ export default function ParallaxComponent(props) {
         setObserver(io)
     }, [])
 
-    return <div ref={containerRef} style={{ position: 'relative', top: -1 * top + 'px' }}>
+    return <div ref={containerRef} style={{ position: 'relative', top: -1 * top + 'px', ...(props.style || {}) }}>
         {props.children}
     </div>
 }
