@@ -64,20 +64,22 @@ const News = props => {
         }
     }, [index])
 
-    return <Skewer>
-        <div ref={cardRef} className={"relative w-80v center flex items-center news-card " + (enableAnimation ? 'appear-animation' : '')} style={{ transition: (transitionPeriod / 1000) + 's' }}>
-            <img className="absolute top-0 left-0 bg-light" style={{ minHeight: '100%', minWidth: '100%', width: 'auto', zIndex: '-1' }} src={coverImage} />
-            <div className="pl5">
-                <h1>{title}</h1>
-                <p>{subtitle}</p>
-                <a href={link}><button className="uk-button">Learn more</button></a>
+    return <div className="relative">
+        <Skewer>
+            <div ref={cardRef} className={"relative w-80v center flex items-center news-card " + (enableAnimation ? 'appear-animation' : '')} style={{ transition: (transitionPeriod / 1000) + 's' }}>
+                <img className="absolute top-0 left-0 bg-light" style={{ minHeight: '100%', minWidth: '100%', width: 'auto', zIndex: '-1' }} src={coverImage} />
+                <div className="pl5">
+                    <h1>{title}</h1>
+                    <p>{subtitle}</p>
+                    <a href={link}><button className="uk-button">Learn more</button></a>
+                </div>
             </div>
-            <div className="absolute" style={{ bottom: '30px', right: '40px' }}>
-                <button onClick={() => changeCard(-1)}><span uk-icon="icon: chevron-left" disabled={isNavigationDisabled} /></button>
-                <button onClick={() => changeCard(1)}><span uk-icon="icon: chevron-right" disabled={isNavigationDisabled} /></button>
-            </div>
+        </Skewer>
+        <div className="absolute uk-button" style={{ bottom: '30px', right: '40px' }}>
+            <button onClick={() => changeCard(-1)}><span uk-icon="icon: chevron-left" disabled={isNavigationDisabled} /></button>
+            <button onClick={() => changeCard(1)}><span uk-icon="icon: chevron-right" disabled={isNavigationDisabled} /></button>
         </div>
-    </Skewer>
+    </div>
 }
 
 export default News;

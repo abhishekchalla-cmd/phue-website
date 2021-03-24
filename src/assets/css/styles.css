@@ -132,7 +132,7 @@ h1 {
     height: 70vh;
     overflow: hidden;
     border-radius: 30px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.9);
 }
 
 .appear-animation {
@@ -221,5 +221,16 @@ h1 {
     box-shadow: 0px -10px 30px rgba(0,0,0,0.3);
 }
 
-.banner-image {
+.st {
+    text-shadow: 5px 5px 0px #000;
+}
+
+.st-yellow {
+    color: #092031;
+    text-shadow: 5px 5px 0px #FFB02E;
+}
+
+.st-blue {
+    color: #FFB02E;
+    text-shadow: 5px 5px 0px #092031;
 }

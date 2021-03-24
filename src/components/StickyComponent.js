@@ -14,7 +14,8 @@ export default function StickyComponent(props) {
         })).observe(containerRef.current)
     }, [])
 
-    return <ParallaxComponent defaultTop={300} duration={typeof window !== 'undefined' && window.innerHeight}>
+    return (
+        // <ParallaxComponent defaultTop={300} duration={typeof window !== 'undefined' && window.innerHeight}>
         <IntersectionComponent handler={entries => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio >= 0 && entry.intersectionRatio < 1) {
@@ -27,5 +28,6 @@ export default function StickyComponent(props) {
             </div>
             <div style={{ height: containerHeight + 'px' }}></div>
         </IntersectionComponent>
-    </ParallaxComponent>
+    // </ParallaxComponent>
+    );
 }

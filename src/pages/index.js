@@ -35,12 +35,17 @@ const ConsumerItem = props => {
       <BlankBox backgroundColor="#333" className="w-100" />
     </div>
     <div className="w-40 ml3">
-      <h1>{props.item.title}</h1>
+      <h1 className="st st-yellow">{props.item.title}</h1>
       <div className="bg-blur pa4 br5">{props.item.content}</div>
     </div>
   </div>
 }
 
+function SectionBackground(props) {
+  return <div className="absolute left-0 top-0 h-100 w-100 z-1">
+    <img src={require(props.img)} className="w-100 h-100" />
+  </div>
+}
 
 const IndexPage = () => {
 
@@ -105,7 +110,7 @@ const IndexPage = () => {
                   <div className="subcontainer flex-ns">
                       <div className="w-50">
                         <div className="w-80">
-                          <h1>About us</h1>
+                          <h1 className="st st-yellow">About us</h1>
                           <div className="br4 bg-white tc pa4 shadowed">
                             <p>
                               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris... 
@@ -121,7 +126,7 @@ const IndexPage = () => {
                       </div>
 
                       <div className="w-50">
-                        <Skewer className="w-100" angle={10}>
+                        <Skewer className="w-100" angle={10} disableY={true}>
                           <div className="ml3 br4">
                             <img src={require('../assets/images/about-us.png')} className="banner-image" />
                           </div>
@@ -137,13 +142,13 @@ const IndexPage = () => {
 
         <div className="h-100v"></div>
         <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ width: 'calc(100vw - 60px)', position: 'fixed' }}>
-          <div className="absolute left-0 top-0 h-100 w-100">
+          <div className="absolute left-0 top-0 h-100 w-100 z-1">
             <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
           </div>
           <div className="w-100v h-100v left-0 top-0 absolute z-2 flex items-center justify-center">
             <div className="subcontainer flex-ns">
               <div className="w-50">
-                <h1>What we offer</h1>
+                <h1 className="st st-blue">What we offer</h1>
                 <div className="bg-blur br4 pa4 mv4">
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris... 
@@ -158,8 +163,11 @@ const IndexPage = () => {
         </div>
 
         <div className="standard-container pv5 bg-white z-2 shadowed-up">
-          <div className="subcontainer">
-            <h1>Value proposition</h1>
+          <div className="absolute left-0 top-0 h-100 w-100 z-1">
+            <img src={require('../assets/images/white-print.png')} className="w-100 h-100" />
+          </div>
+          <div className="subcontainer" className="relative z-2">
+            <h1 className="st st-yellow">Value proposition</h1>
             
             <div className="flex mt4">
               <div className="w-50">
@@ -201,26 +209,32 @@ const IndexPage = () => {
         </div>
 
         <StickyComponent className="z-3 standard-container pv5 h-100v top-0 right-0 z-1 bg-sky-blue">
-          <div id="of-core-values" className="subcontainer">
-              <h1>Core values</h1>
-              <div className="flex">
-                  <div className="w-33">
-                      <BlankBox className="w-100" />
-                  </div>
-                  <div className="w-33">
-                      <BlankBox className="w-100" />
-                  </div>
-                  <div className="w-33">
-                      <BlankBox className="w-100" />
-                  </div>
-              </div>
+          <div className="absolute left-0 top-0 h-100 w-100 z-1">
+            <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
+          </div>
+          <div id="of-core-values" className="subcontainer relative z-2">
+            <h1 className="st st-blue">Core values</h1>
+            <div className="flex">
+                <div className="w-33">
+                    <BlankBox className="w-100" />
+                </div>
+                <div className="w-33">
+                    <BlankBox className="w-100" />
+                </div>
+                <div className="w-33">
+                    <BlankBox className="w-100" />
+                </div>
+            </div>
           </div>
         </StickyComponent>
 
         <StickySlider onChange={e => {
           setConsumerCursor(e)
         }} divisions={consumerItems.length} name="consumer">
-          <div className="subcontainer">
+          <div className="absolute left-0 top-0 h-100 w-100 z-1">
+            <img src={require('../assets/images/white-print.png')} className="w-100 h-100" />
+          </div>
+          <div className="subcontainer relative z-2">
             <Gallery
               items={consumerItems}
               current={consumerCursor}
@@ -231,9 +245,12 @@ const IndexPage = () => {
         </StickySlider>
 
         <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-dark" style={{ marginTop: '-100vh' }}>
-          <div className="subcontainer flex">
+          <div className="absolute left-0 top-0 h-100 w-100 z-1">
+            <img src={require('../assets/images/nostos-bg.png')} className="w-100 h-100" />
+          </div>
+          <div className="subcontainer flex relative z-2">
             <div className="w-50 pr3">
-              <h1 className="white">Nostos</h1>
+              <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
               <div className="bg-blur pa4 br5">
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
               </div>
