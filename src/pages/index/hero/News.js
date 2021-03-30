@@ -76,8 +76,8 @@ const News = props => {
             </div>
         </Skewer>
         <div className="absolute uk-button" style={{ bottom: '30px', right: '40px' }}>
-            <button onClick={() => changeCard(-1)}><span uk-icon="icon: chevron-left" disabled={isNavigationDisabled} /></button>
-            <button onClick={() => changeCard(1)}><span uk-icon="icon: chevron-right" disabled={isNavigationDisabled} /></button>
+            <button onClick={() => changeCard(-1)} className="navigation-btn mr1"><span uk-icon="icon: chevron-left" disabled={isNavigationDisabled} /></button>
+            <button onClick={() => changeCard(1)} className="navigation-btn ml1"><span uk-icon="icon: chevron-right" disabled={isNavigationDisabled} /></button>
         </div>
     </div>
 }

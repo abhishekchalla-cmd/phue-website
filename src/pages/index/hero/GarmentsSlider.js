@@ -80,7 +80,7 @@ export default function GarmentsSlider(props) {
             cursor: isOpen ? 'grab' : 'default'
         }} onPointerDown={() => setBeginDrag(true)}>
             <div className="absolute" style={{ right: '40px', top: '20px' }}>
-                <img src={require('../../../assets/images/logo.svg')} style={{ width: '75px' }} />
+                <img src={require('../../../assets/images/logo.png')} style={{ width: '75px' }} />
             </div>
             <div className="w-100 absolute bg-dark"
                 style={{

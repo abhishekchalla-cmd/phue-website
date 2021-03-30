@@ -4,18 +4,40 @@
     --text-color: #444;
     --light: #bbb;
     --borderDark: #777;
-    --bgDark: #081318;
+    --bgDark: rgb(8, 19, 24);
     --bgLight: #ddd;
     --skyBlue: rgb(84, 211, 250);
+    --text-dark: #222;
+    --yellow: #E98607;
 }
 
 body {
     overflow-x: hidden;
 }
 
+a:link, a:visited {
+    color: var(--text-color);
+    transition: 0.2s;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
 h1 {
     font-family: big shoulders display;
     text-transform: uppercase;
+}
+
+h2 {
+    font-family: big shoulders display;
+    text-transform: uppercase;
+    margin: 10px 0 5px 0;
+}
+
+p {
+    margin: 0;
 }
 
 .h-100v {
@@ -41,6 +63,8 @@ h1 {
 .w-100v {
     width: 100vw;
 }
+
+.sticky { position: sticky; }
 
 .z-1 { z-index: 1; }
 .z-2 { z-index: 2; }
@@ -80,6 +104,38 @@ h1 {
 
 .bg-blur {
     backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1)
+}
+
+.bg-trans-blue {
+    background: rgb(8, 19, 24, 0.3);
+}
+
+.border-white {
+    border: 1px solid #fff;
+}
+
+.white-important {
+    color: #fff !important;
+}
+
+.glass-morph {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    border-radius: 30px;
+}
+
+.btn-wide {
+    width: 90%;
+    max-width: 400px;
+}
+
+.h-90 {
+    height: 90%;
+}
+
+.text-dark {
+    color: var(--text-dark);
 }
 
 .shadowed {
@@ -105,6 +161,20 @@ h1 {
 
 .w-sidebar {
     width: 60px;
+}
+
+.navigation-btn {
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    border: 0;
+    cursor: pointer;
+}
+
+.navigation-btn:focus {
+    outline: 0;
+    background: #ddd;
 }
 
 .garments-slider {
@@ -162,6 +232,7 @@ h1 {
 .gallery-item.invisible {
     /* transform: scaleX(0); */
     width: 0;
+    padding: 0;
 }
 
 .gallery-item.visible {
@@ -233,4 +304,44 @@ h1 {
 .st-blue {
     color: #FFB02E;
     text-shadow: 5px 5px 0px #092031;
+}
+
+.banner-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: 2.5rem;
+    border-radius: 20px;
+}
+
+.banner-image img {
+    transform: translate(-50%, -50%);
+    width: 200% !important;
+    max-width: 1200px !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.shop-btn {
+    background: var(--yellow);
+    font-family: big shoulders display;
+    text-transform: uppercase;
+    font-size: 28px;
+    color: #fff !important;
+    padding: 10px 30px !important;
+}
+
+.invisible {
+    background: transparent;
+    padding: 5px 15px;
+    border: 0;
+    transition: 0.2s;
+    color: #fff;
+}
+
+.invisible:focus {
+    outline: 0;
 }

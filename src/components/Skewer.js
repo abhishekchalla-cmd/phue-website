@@ -41,7 +41,8 @@ export default function Skewer(props) {
             transform: 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)',
             transformStyle: 'preserve-3d',
             width: '100%',
-            transition: '0.1s'
+            height: '100%',
+            transition: '0.1s',
         }}>
             {props.children}
         </div>

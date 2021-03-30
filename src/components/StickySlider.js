@@ -32,8 +32,8 @@ export default function StickySlider(props) {
             })
         }}
     >
-        <div className="standard-container z-2" ref={containerRef} style={{ transition: '1s', height: (divisions * 100 + 90) + 'vh', backgroundColor }}>
-            <div className="top-0 bottom-0 h-100v w-100 bg-white flex items-center justify-center" style={{ position: 'sticky' }}>
+        <div className="standard-container z-2" ref={containerRef} style={{ transition: '1s', height: (divisions * 100 + 90) + 'vh', backgroundColor, ...(props.style ? props.style : {}) }}>
+            <div className="top-0 bottom-0 h-100v w-100 flex items-center justify-center" style={{ position: 'sticky' }}>
                 {children}
             </div>
         </div>
