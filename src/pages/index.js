@@ -38,7 +38,7 @@ const GarmentItem = props => {
       <img src={props.item.image} style={{ maxWidth: '100vw', width: 'auto', height: '95vh' }} />
     </div>
     <div className="absolute w-75" style={{ bottom: '100px' }}>
-      <h1 className="white">{props.index + 1}</h1>
+      <h1 className="white" style={{ fontSize: '100px' }}>{props.index + 1}</h1>
       <div className="bg-blur glass-morph br4 pa4">
           <h2 className="white">{props.item.title}</h2>
           <p style={{ color: 'rgba(255, 255, 255, 0.5)' }} className="mv3">{props.item.description}</p>
@@ -99,7 +99,7 @@ const ValuePropositionItem = props => {
     transform: `translate(${props.translateX || -50}%, ${props.translateY || -50}%)`
   };
   const order = [<div className="w-50 flex items-center justify-center">
-      <div className="br4 pa5 bg-white shadowed tc">
+      <div className="br4 pa5 bg-white shadowed tc w-80">
         <div className="w-100 flex justify-center">
           <BannerIcon src={props.icon} blueBackground={true} />
         </div>
@@ -107,9 +107,9 @@ const ValuePropositionItem = props => {
         <p>{props.content}</p>
       </div>
     </div>,
-    <div className="w-50">
+    <div className="w-50 flex items-center justify-center">
       <Skewer className="w-100 h-100" angle={10} disableY={true}>
-        <div className="banner-image" style={{ width: props.imageWidth ? props.imageWidth + 'px' : '700px'}}>
+        <div className="banner-image" style={{ width: props.imageWidth ? props.imageWidth + '%' : '100%' }}>
           <img src={props.src} style={{...imgAttributes}} />
         </div>
       </Skewer>
@@ -119,11 +119,26 @@ const ValuePropositionItem = props => {
 }
 
 const CoreValuesItem = props => {
-  return <div className="w-33 flex justify-center">
-    <div className="bg-blur br4 pa3 pb4 glass-morph flex flex-column items-center items-center w-80">
+  return <div className="w-33 flex relative justify-center">
+    <div className="bg-blur br4 pa3 pb4 glass-morph flex flex-column items-center items-center w-80 relative z-2">
       <img src={props.src} className="w-90" />
-      <h2>{props.title}</h2>
+      <h2 className="white mt4">{props.title}</h2>
       <p className="text-dark tc">{props.content}</p>
+    </div>
+    <div className="w-100 flex h-100 top-0 left-0 absolute justify-center">
+      <div className="w-80 h-100 flex justify-center items-center">
+        <div style={{
+          position: 'absolute',
+          top: '18px',
+          height: '0',
+          width: '0',
+          padding: '33%',
+          background: 'var(--yellow)',
+          filter: 'blur(10px)',
+          borderRadius: '100%',
+          zIndex: '1'
+        }} />
+      </div>
     </div>
   </div>
 }
@@ -132,14 +147,18 @@ const GarmentLeftItem = ({ item }) => {
   return <div className="w-90 pa2 h-100 flex relative items-center">
       <div data-uk-slider>
         <ul className="uk-slider-items uk-child-width-1-1">
-          {item.items.map(subImage => <li className="garment-gallery-item">
-            <Image src={subImage} />
-          </li>)}
+          {item.items.map((subImage, index) =>
+            <li className="garment-gallery-item">
+              <Image src={subImage} />
+            </li>
+          )}
         </ul>
         <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin white-dotnav"></ul>
 
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover z-7" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover z-7" href="#" uk-slidenav-next uk-slider-item="next"></a>
+        <div className="absolute bottom-0 w-100">
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-previous uk-slider-item="previous"><span uk-icon="icon: chevron-left; ratio: 1"></span></a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-next uk-slider-item="next"><span uk-icon="icon: chevron-right; ratio: 1"></span></a>
+        </div>
       </div>
   </div>
 }
@@ -237,6 +256,9 @@ const IndexPage = () => {
     },
   ];
   const [consumerCursor, setConsumerCursor] = useState(0);
+  
+  const [whatWeOfferExpandable, setWhatWeOfferExpandable] = useState(false);
+  const [nostosExpandable, setNostosExpandable] = useState(false);
 
 
   return <Layout>
@@ -252,13 +274,13 @@ const IndexPage = () => {
         
         <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && (window.innerHeight)}>
           <StickySlider divisions={1}>
-            <div className="z-2 standard-container top-0 left-0 h-100v overflow-y-hidden shadowed-down" id="about"> 
+            <div className="z-2 standard-container top-0 left-0 h-100v overflow-hidden shadowed-down" id="about"> 
                 <div className="absolute top-0 left-0 w-100v h-100v">
                   <img src={require('../assets/images/white-print.png')} className="w-100" />
                 </div>
                 <div className="h-100v w-100v absolute flex items-center justify-center">
                   <div className="subcontainer flex-ns">
-                      <div className="w-50">
+                      <div className="subcontainer-small">
                         <div className="w-100">
                           <h1 className="st st-yellow">About us</h1>
                           <div className="br4 bg-white tc pa4 shadowed">
@@ -275,12 +297,12 @@ const IndexPage = () => {
                         </div>
                       </div>
 
-                      <div className="w-50">
-                        <Skewer className="w-100 h-100" angle={10} disableY={true}>
+                      <div className="subcontainer-big">
+                        {/* <Skewer className="w-100 h-100" angle={10} disableY={true}> */}
                           <div className="banner-image">
-                            <img src={require('../assets/images/about-us.png')} />
+                            <img src={require('../assets/images/about-us.png')} style={{ maxWidth: 'unset !important', width: '200% !important' }} />
                           </div>
-                        </Skewer>
+                        {/* </Skewer> */}
                       </div>
                   </div>
                 </div>
@@ -297,28 +319,38 @@ const IndexPage = () => {
           </div>
           <div className="w-100v h-100v left-0 top-0 absolute z-2 flex items-center justify-center">
             <div className="subcontainer flex-ns">
-              <div className="w-50">
+              <div className="subcontainer-small flex justify-center flex-column">
                 <h1 className="st st-blue">What do we offer?</h1>
                 <div className="bg-blur br4 pa4 mv4 w-100 text-dark glass-morph">
                   <BannerIcon src={require('../assets/images/icons/wdwo.svg')} />
                   <h2 className="white">Lorem</h2>
-                  <p>
+                  <p className="mt3">
                     Clothing described as wearable art, bringing art onto a platform meant for a bridge market that is the perfect blend between commercial & luxury.
                   </p>
-                  <p>
-                    We create a platform where art or evolving a design language is not just co-related with luxury but will be associated with the masses who want to be the connoisseur of their own story. Art is for the everyday man, who wants to be understood, create their path & with Phue we make a community that understands and appreciates art—creating a blend between COMFORT & DECADENCE.
-                  </p>
-                  <p>
-                    We  provide an appreciation for the passion & time it takes to make art & to convert a process into a narrative that enables a human connection. A story can be told through the most mundane objects that we see around us & We aim at weaving those objects together to create a narrative.
-                  </p>
+
+                  <div className="overflow-hidden" style={{
+                    transition: '0.2s',
+                    height: whatWeOfferExpandable ? '280px' : '0'
+                  }}>
+                    <p className="mv2">
+                      We create a platform where art or evolving a design language is not just co-related with luxury but will be associated with the masses who want to be the connoisseur of their own story. Art is for the everyday man, who wants to be understood, create their path & with Phue we make a community that understands and appreciates art—creating a blend between COMFORT & DECADENCE.
+                    </p>
+                    <p className="mv2">
+                      We  provide an appreciation for the passion & time it takes to make art & to convert a process into a narrative that enables a human connection. A story can be told through the most mundane objects that we see around us & We aim at weaving those objects together to create a narrative.
+                    </p>
+                  </div>
+
+                  <button className="uk-button uk-button-default" style={{ color: '#fff', marginTop: '30px', borderColor: '1px solid #fff' }} onClick={() => setWhatWeOfferExpandable(!whatWeOfferExpandable)}>
+                    {whatWeOfferExpandable ? 'Hide' : 'Read more'}
+                  </button>
                 </div>
               </div>
-              <div className="w-50">
-                <Skewer className="w-100 h-100" angle={10} disableY={true}>
+              <div className="subcontainer-big">
                   <div className="banner-image">
-                    <img src={require('../assets/images/about-us.png')} />
+                    <video className="br4 shadowed w-80" style={{ border: '10px solid var(--bgDark)', background: 'rgba(0,0,0,0.8)' }} autoPlay controls loop muted>
+                      <source src={require('../assets/videos/wdwo.mp4')} type="video/mp4" />
+                    </video>
                   </div>
-                </Skewer>
               </div>
             </div>
           </div>
@@ -346,7 +378,7 @@ const IndexPage = () => {
                 src={require('../assets/images/vp-innovation.png')}
                 icon={require('../assets/images/icons/vp-innovation.png')}
                 reverse={true}
-                imageWidth={400}
+                imageWidth={80}
               />
 
               <ValuePropositionItem
@@ -354,7 +386,7 @@ const IndexPage = () => {
                 content="We believe in indulgence, living life to the fullest  Art in itself is extravagant and found with layers of subtext. We intend to curate the same meaning of art for fashion maximalists."
                 src={require('../assets/images/vp-extravagance.png')}
                 icon={require('../assets/images/icons/vp-extravagance.png')}
-                imageWidth={400}
+                imageWidth={80}
                 translateX={-40}
               />
 
@@ -368,7 +400,11 @@ const IndexPage = () => {
             <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
           </div>
           <div id="of-core-values" className="subcontainer relative z-2">
-            <h1 className="st st-blue">Our Core values</h1>
+            <div className="w-33 flex justify-center">
+              <div className="w-80 tl">
+                <h1 className="st st-blue">Our Core values</h1>
+              </div>
+            </div>
             <div className="flex mt4">
                 <CoreValuesItem
                   title="Process"
@@ -378,7 +414,7 @@ const IndexPage = () => {
 
                 <CoreValuesItem
                   title="Passion"
-                  content={`Passion for continually creating stories through the chaos.Maximalist fashion is the ability to convert mayhem into significant pieces of art. Maximalism can also be interpreted as a celebration of life, embracing the aesthetic of "more is more". PHUE embraces the unrest of today's years.`}
+                  content={`Passion for continually creating stories through the chaos.Maximalist fashion is the ability to convert mayhem into significant pieces of art. PHUE embraces the unrest of today's years.`}
                   src={require('../assets/images/cv-passion.png')}
                 />
 
@@ -412,20 +448,33 @@ const IndexPage = () => {
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
             <img src={require('../assets/images/nostos-bg.png')} className="w-100 h-100" />
           </div>
-          <div className="subcontainer flex relative z-2">
-            <div className="w-50 pr3">
+          <div className="subcontainer flex relative z-2 items-center">
+            <div className="subcontainer-small pr3">
               <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
-              <div className="bg-blur glass-morph white pa4 br5">
+              <div className="bg-blur glass-morph white pa4 br5 p-margin">
                 <BannerIcon src={require('../assets/images/icons/nostos.svg')} />
-                <h2 className="white">Lorem</h2>
-                <p>Nostos means home in Greek. Nostalgia is a yearning for a home. The digital revolution defining the turn of the century brought significant changes which could also affect emotional perspectives. Everything we could desire in space or time is right in front of us – but there is still space for nostalgia. We are nostalgic about the lost indirectness; a connection unmediated by computers, with other people or nature. Contemporary nostalgia is not merely a desire for an existing, concrete home, but more for the abstract "homeliness".</p>
-                <p>With every piece, the progression of nostalgia is showcased, including the complexity of emotions. It depicts that the existence of two concepts in the same plane, acknowledging the past might look like a better place to be, but it's not. Through NOSTOS, a platform that encourages it as well as questions it. The idea is to create a home to come back to, which is not defined by time and space conventions. Nostos represents a deeper appreciation for the past and a keen interest in the future. Through NOSTOS, a rich & eccentric amalgamation of textiles, silhouettes & tactile surfaces is created to get thematically transported to a better time.</p>
+                <h2 className="white">Lights. Camera. Action!</h2>
+                <p>Nostos means home in Greek. Nostalgia is a yearning for a home. The digital revolution defining the turn of the century brought significant changes which could also affect emotional perspectives.</p>
+                
+                <div className="overflow-hidden" style={{
+                    transition: '0.2s',
+                    height: nostosExpandable ? '280px' : '0'
+                  }}>
+                    <p>Everything we could desire in space or time is right in front of us – but there is still space for nostalgia. We are nostalgic about the lost indirectness; a connection unmediated by computers, with other people or nature. Contemporary nostalgia is not merely a desire for an existing, concrete home, but more for the abstract "homeliness".</p>
+                    <p>With every piece, the progression of nostalgia is showcased, including the complexity of emotions. It depicts that the existence of two concepts in the same plane, acknowledging the past might look like a better place to be, but it's not. Through NOSTOS, a platform that encourages it as well as questions it. The idea is to create a home to come back to, which is not defined by time and space conventions. Nostos represents a deeper appreciation for the past and a keen interest in the future. Through NOSTOS, a rich & eccentric amalgamation of textiles, silhouettes & tactile surfaces is created to get thematically transported to a better time.</p>
+                </div>
+
+                <button className="uk-button uk-button-default" style={{ color: '#fff', marginTop: '30px', borderColor: '1px solid #fff' }} onClick={() => setNostosExpandable(!nostosExpandable)}>
+                  {nostosExpandable ? 'Hide' : 'Read more'}
+                </button>
               </div>
             </div>
 
-            <div className="w-50">
-              <div className="pa2 br4 bg-white shadowed">
-                <img src={require('../assets/images/nostos-thumbnail.svg')} />
+            <div className="subcontainer-big h-100 flex">
+              <div className="pa2 w-100">
+                <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} autoPlay controls muted loop>
+                  <source src={require('../assets/videos/nostos.mp4')} type="video/mp4" />
+                </video>
               </div>
             </div>
           </div>
@@ -456,6 +505,7 @@ const IndexPage = () => {
                   Component={GarmentLeftItem}
                   className="w-90"
                   style={{ height: '60vh' }}
+                  noNavigation={true}
                 />
             </div>
             <div className="w-50 h-100v relative flex items-center justify-center">
@@ -469,7 +519,7 @@ const IndexPage = () => {
             <img src={require('../assets/images/white-print.png')} className="w-100 h-100" />
           </div>
           <div className="subcontainer relative z-2 flex flex-column items-center justify-center">
-            <button className="uk-button btn-wide shop-btn">SHOP NOW</button>
+            <button className="uk-button btn-wide shop-btn" style={{ borderRadius: '10px !important'}}>SHOP NOW</button>
             <h1 className="text-dark mv5" style={{ fontSize: '50px' }}>Stay updated!</h1>
             <div className="br4 bg-trans-blue">
               <input type="text" className="invisible h-100" style={{ width: '300px' }} placeholder="Enter your email" />
@@ -514,7 +564,7 @@ const IndexPage = () => {
 
 
         <div className="fixed z-5" style={{ bottom: '40px', right: '60px' }}>
-          <button className="uk-button shop-btn">SHOP NOW</button>
+          <button className="uk-button shop-btn">SHOP</button>
         </div>
       </div>
     </div>
