@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Sidebar(props) {
-    return <div className="fixed top-0 left-0 h-100v flex flex-column justify-end items-center bg-dark ph2 w-sidebar" style={{ zIndex: '100' }}>
+    return <div className="fixed top-0 left-0 h-100v flex flex-column justify-end items-center bg-dark ph2 w-sidebar z-8">
         <a href="#home">
             <div className="pa2 pv4 bv-dark">
                 <span uk-icon="icon: home; ratio: 1.2" uk-tooltip="Home"></span>

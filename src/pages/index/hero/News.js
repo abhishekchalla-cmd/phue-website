@@ -70,7 +70,7 @@ const News = props => {
                 <img className="absolute top-0 left-0 bg-light" style={{ minHeight: '100%', minWidth: '100%', width: 'auto', zIndex: '-1' }} src={coverImage} />
                 <div className="pl5">
                     <h1>{title}</h1>
-                    <p>{subtitle}</p>
+                    <p className="mb3">{subtitle}</p>
                     <a href={link}><button className="uk-button">Learn more</button></a>
                 </div>
             </div>

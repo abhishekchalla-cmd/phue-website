@@ -1,0 +1,69 @@
+{
+    "nostos": [
+        {
+            "name": 1,
+            "files": [
+                "nostos/1/1.png",
+                "nostos/1/2.png",
+                "nostos/1/3.png",
+                "nostos/1/4.png",
+                "nostos/1/5.png",
+                "nostos/1/6.png",
+                "nostos/1/7.png"
+            ]
+        },
+        {
+            "name": 2,
+            "files": [
+                "nostos/2/1.png",
+                "nostos/2/2.png",
+                "nostos/2/3.png",
+                "nostos/2/4.png",
+                "nostos/2/5.png",
+                "nostos/2/6.png",
+                "nostos/2/7.png",
+                "nostos/2/8.png",
+                "nostos/2/9.png"
+            ]
+        },
+        {
+            "name": 3,
+            "files": [
+                "nostos/3/1.png",
+                "nostos/3/2.png",
+                "nostos/3/3.png",
+                "nostos/3/4.png",
+                "nostos/3/5.png",
+                "nostos/3/6.png",
+                "nostos/3/7.png"
+            ]
+        },
+        {
+            "name": 4,
+            "files": [
+                "nostos/4/1.png",
+                "nostos/4/2.png",
+                "nostos/4/3.png",
+                "nostos/4/4.png",
+                "nostos/4/5.png",
+                "nostos/4/6.png",
+                "nostos/4/7.png",
+                "nostos/4/8.png",
+                "nostos/4/9.png"
+            ]
+        },
+        {
+            "name": 5,
+            "files": [
+                "nostos/5/1.png",
+                "nostos/5/2.png",
+                "nostos/5/3.png",
+                "nostos/5/4.png",
+                "nostos/5/5.png",
+                "nostos/5/6.png",
+                "nostos/5/7.png",
+                "nostos/5/8.png"
+            ]
+        }
+    ]
+}
