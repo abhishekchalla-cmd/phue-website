@@ -518,7 +518,7 @@ const IndexPage = () => {
         </div>
       </div>
     </div>
-    <Loader />
+    {/* <Loader /> */}
   </Layout>
 }
 
