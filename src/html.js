@@ -16,6 +16,7 @@ export default function HTML(props) {
 
         <link rel="stylesheet" href="https://unpkg.com/tachyons@4/css/tachyons.min.css"></link>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.17/dist/css/uikit.min.css" />
+
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>

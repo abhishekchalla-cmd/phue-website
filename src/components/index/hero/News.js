@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Skewer from '../../../components/Skewer';
+import Skewer from '../../Skewer';
 
 const transitionPeriod = 300;
 let timeout;

@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 import Sidebar from "../components/sidebar"
 import ParallaxComponent from '../components/parallax';
-import Hero from "./index/Hero";
+import Hero from "../components/index/Hero";
 import StickyComponent from "../components/StickyComponent";
-import BlankBox from "../components/BlankBox";
 import StickySlider from '../components/StickySlider';
 import Gallery from '../components/Gallery';
 import Layout from '../components/Layout';

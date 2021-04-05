@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BlankBox from '../../../components/BlankBox';
+import BlankBox from '../../BlankBox';
 
 const columnCount = 5;
 const dim = 400;

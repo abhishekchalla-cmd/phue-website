@@ -9,7 +9,8 @@ export default function Loader(props) {
 
     return <div className="fixed z-8 top-0 left-0 h-100v w-100v flex items-center justify-center bg-white" style={{
         transition: '1s',
-        opacity: loaded ? '0' : '1'
+        opacity: loaded ? '0' : '1',
+        pointerEvents: loaded ? 'none' : 'all'
     }}>
         <h1>Loading</h1>
     </div>
