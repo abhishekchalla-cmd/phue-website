@@ -223,6 +223,8 @@ const IndexPage = () => {
         items: nostosImages[4].files
     },
   ];
+
+
   const [garmentsCursor, setGarmentsCursor] = useState(0);
   const [subGarmentsCursor, setSubGarmentsCursor] = useState(0);
   const garmentsDivision = garmentItems.reduce((acc, current) => acc + current.items.length, 0);
@@ -259,7 +261,6 @@ const IndexPage = () => {
   
   const [whatWeOfferExpandable, setWhatWeOfferExpandable] = useState(false);
   const [nostosExpandable, setNostosExpandable] = useState(false);
-
 
   return <Layout>
     <div className="flex">
@@ -482,9 +483,7 @@ const IndexPage = () => {
 
         <StickySlider
           onChange={cursor => {
-            // const [garmentsCur, subGarmentsCur] = getGarmentsCursor(cursor);
             setGarmentsCursor(cursor);
-            // setSubGarmentsCursor(subGarmentsCur);
           }}
           divisions={garmentItems.length}
           name="garments"
@@ -568,7 +567,7 @@ const IndexPage = () => {
         </div>
       </div>
     </div>
-    {/* <Loader /> */}
+    <Loader />
   </Layout>
 }
 
