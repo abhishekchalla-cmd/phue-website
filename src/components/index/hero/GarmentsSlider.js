@@ -96,7 +96,7 @@ export default function GarmentsSlider(props) {
             </div>
         </div>
         <button className="uk-button" onClick={() => setIsOpen(!isOpen)} style={{ zIndex: '3', borderRadius: '100%', height: '50px', width: '50px', marginLeft: '-25px', padding: '0' }}>
-            <span uk-icon={`icon: ${isOpen ? 'chevron-left' : 'chevron-right'}`}></span>
+            <span data-uk-icon={`icon: ${isOpen ? 'chevron-left' : 'chevron-right'}`}></span>
         </button>
     </div>
 }

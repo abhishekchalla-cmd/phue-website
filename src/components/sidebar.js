@@ -6,25 +6,25 @@ export default function Sidebar(props) {
     }}>
         <a href="#home">
             <div className="pa2 pv4 bv-dark">
-                <span uk-icon="icon: home; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Home"></span>
+                <span data-uk-icon="icon: home; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Home"></span>
             </div>
         </a>
 
         <a href="#about">
             <div className="pa2 pt4">
-                <span uk-icon="icon: info; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="About"></span>
+                <span data-uk-icon="icon: info; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="About"></span>
             </div>
         </a>
 
         <a href="#nostos">
             <div className="pa2 pt4">
-                <span uk-icon="icon: album; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Collections"></span>
+                <span data-uk-icon="icon: album; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Collections"></span>
             </div>
         </a>
 
         <a href="mailto:panyagupta@gmail.com">
             <div className="pa2 pv4">
-                <span uk-icon="icon: receiver; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Contact"></span>
+                <span data-uk-icon="icon: receiver; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Contact"></span>
             </div>
         </a>
     </div>

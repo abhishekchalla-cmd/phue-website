@@ -21,12 +21,12 @@ export default function Gallery(props) {
         {!props.noNavigation && <div className="w-100 flex">
             <div className="w-50 tr pr2">
                 <button className="navigation-btn" onClick={() => navigate(-1 * scrollLength)}>
-                    <span uk-icon="icon: chevron-left"></span>
+                    <span data-uk-icon="icon: chevron-left"></span>
                 </button>
             </div>
             <div className="w-50 tl pl2">
                 <button className="navigation-btn" onClick={() => navigate(scrollLength)}>
-                    <span uk-icon="icon: chevron-right"></span>
+                    <span data-uk-icon="icon: chevron-right"></span>
                 </button>
             </div>
         </div>}

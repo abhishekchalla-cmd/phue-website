@@ -156,8 +156,8 @@ const GarmentLeftItem = ({ item }) => {
         <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin white-dotnav"></ul>
 
         <div className="absolute bottom-0 w-100">
-          <a class="uk-position-center-left uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-previous uk-slider-item="previous"><span uk-icon="icon: chevron-left; ratio: 1"></span></a>
-          <a class="uk-position-center-right uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-next uk-slider-item="next"><span uk-icon="icon: chevron-right; ratio: 1"></span></a>
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-previous uk-slider-item="previous"><span data-uk-icon="icon: chevron-left; ratio: 1"></span></a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-next uk-slider-item="next"><span data-uk-icon="icon: chevron-right; ratio: 1"></span></a>
         </div>
       </div>
   </div>
@@ -246,7 +246,7 @@ const IndexPage = () => {
     },
     {
       title: 'Unconventional',
-      content: 'Embrace eccentricity and get transportedto  a better time thematically.',
+      content: 'Embrace eccentricity and get transported to a better time thematically.',
       src: consumerImage2
     },
     {
@@ -288,10 +288,10 @@ const IndexPage = () => {
                               We are a maximalist fashion brand that believes in following the philosophy of "Creating stories through chaos". We aim at curating art for fashion. Our Focus is to provide clothing described as wearable art, bringing art onto a platform to the masses who want to be the connoisseur of their own story. 
                             </p>
                             <div className="flex justify-center w-100 mt4">
-                              <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: instagram; ratio: 2"></span></div></a>
-                              <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: facebook; ratio: 2"></span></div></a>
-                              <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: whatsapp; ratio: 2"></span></div></a>
-                              <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: linkedin; ratio: 2"></span></div></a>
+                              <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: instagram; ratio: 2"></span></div></a>
+                              <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: facebook; ratio: 2"></span></div></a>
+                              <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: whatsapp; ratio: 2"></span></div></a>
+                              <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: linkedin; ratio: 2"></span></div></a>
                             </div>
                           </div>
                         </div>
@@ -446,7 +446,7 @@ const IndexPage = () => {
 
         <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-dark" style={{ marginTop: '-100vh' }}>
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
-            <img src={require('../assets/images/nostos-bg.png')} className="w-100 h-100" />
+            <img src={require('../assets/images/nostos-bg.png')} className="w-100" />
           </div>
           <div className="subcontainer flex relative z-2 items-center">
             <div className="subcontainer-small pr3">
@@ -498,7 +498,7 @@ const IndexPage = () => {
           </div>
           <div className="subcontainer flex relative z-2 w-100 h-100">
             <div className="w-50 h-100 flex items-center justify-center">
-                <Gallery
+                {/* <Gallery
                   items={garmentItems} 
                   current={garmentsCursor}
                   scrollLength={typeof window !== 'undefined' && window.innerHeight}
@@ -506,7 +506,7 @@ const IndexPage = () => {
                   className="w-90"
                   style={{ height: '60vh' }}
                   noNavigation={true}
-                />
+                /> */}
             </div>
             <div className="w-50 h-100v relative flex items-center justify-center">
                 {garmentItems.map((_item, index) => <GarmentItem item={_item} current={garmentsCursor} selected={index === garmentsCursor} index={index} />)}
@@ -553,10 +553,10 @@ const IndexPage = () => {
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
                 </p>
                 <div className="flex justify-end">
-                  <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: instagram; ratio: 2"></span></div></a>
-                  <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: facebook; ratio: 2"></span></div></a>
-                  <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: whatsapp; ratio: 2"></span></div></a>
-                  <a href="" target="_blank"><div className="uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span uk-icon="icon: linkedin; ratio: 2"></span></div></a>
+                  <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: instagram; ratio: 2"></span></div></a>
+                  <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: facebook; ratio: 2"></span></div></a>
+                  <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: whatsapp; ratio: 2"></span></div></a>
+                  <a href="" target="_blank"><div className="data-uk-icon-button mh2" style={{ padding: '10px', width: '50px', height: '50px' }}><span data-uk-icon="icon: linkedin; ratio: 2"></span></div></a>
                 </div>
               </div>
           </div>
