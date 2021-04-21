@@ -1,10 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import StickyScrollerContextProvider from '../contexts/StickyScrollerContext';
+import ScrollContextProvider from '../contexts/ScrollContext';
 
 export default function Layout(props) {
 
-    return <StickyScrollerContextProvider>
+    return <ScrollContextProvider>
         {props.children}
-    </StickyScrollerContextProvider>
+    </ScrollContextProvider>
 }

@@ -10,7 +10,7 @@ export default function StickyComponent(props) {
 
     useEffect(() => {
         (new ResizeObserver(() => {
-            setContainerHeight(containerRef.current.clientHeight);
+            if (containerRef.current) setContainerHeight(containerRef.current.clientHeight);
         })).observe(containerRef.current)
     }, [])
 

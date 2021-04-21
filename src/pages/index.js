@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Sidebar from "../components/sidebar"
 import ParallaxComponent from '../components/parallax';
 import Hero from "../components/index/Hero";
@@ -23,6 +23,8 @@ import nostosImage2 from '../assets/images/nostos-2.png';
 import nostosImage3 from '../assets/images/nostos-3.png';
 import nostosImage4 from '../assets/images/nostos-4.png';
 import nostosImage5 from '../assets/images/nostos-5.png';
+import ScrollContextProvider, { ScrollContext } from "../contexts/ScrollContext";
+import { getWindow, isWindow } from '../utils/scroll';
 
 
 
@@ -31,18 +33,36 @@ import nostosImage5 from '../assets/images/nostos-5.png';
 
 
 
+
+getWindow.interacted = false;
+getWindow.addEventListener && getWindow.addEventListener('click', () => getWindow.interacted = true);
 
 const GarmentItem = props => {
+
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
+  console.log(props);
+
+  function changeToggle() {
+    console.log(props.itemIndex);
+    const elem = document.getElementById(props.itemIndex);
+    if (elem.style.height == 'auto') elem.style.height = '100px';
+    else elem.style.height = 'auto';
+  }
+
   return <div className={"h-80 relative flex w-100 items-center justify-start gallery-right-item " + (props.selected ? "selected" : "unselected")}>
     <div className="absolute bottom-0">
       <img src={props.item.image} style={{ maxWidth: '100vw', width: 'auto', height: '95vh' }} />
     </div>
     <div className="absolute w-75" style={{ bottom: '100px' }}>
-      <h1 className="white" style={{ fontSize: '100px' }}>{props.index + 1}</h1>
+      <h1 className="white" style={{ fontSize: '100px' }}>{props.itemIndex + 1}</h1>
       <div className="bg-blur glass-morph br4 pa4">
           <h2 className="white">{props.item.title}</h2>
-          <p style={{ color: 'rgba(255, 255, 255, 0.5)' }} className="mv3">{props.item.description}</p>
-          {/* <button className="uk-button bg-transparent border-white white-important">BUY NOW</button> */}
+          <div style={{
+            color: '#000',
+            transition: '0.2s',
+            // textOverflow: 'ellipsis',
+            // overflow: 'hidden'
+          }} className="mv3" id={props.itemIndex + ''}>{props.item.description}</div>
       </div>
     </div>
   </div>;
@@ -51,9 +71,9 @@ const GarmentItem = props => {
 const ConsumerItem = props => {
   return <div className="flex h-100">
     <div className="w-60 h-100 flex items-center justify-center">
-      <img src={props.item.src} className="shadowed w-80" style={{ border: '10px solid #fff', borderRadius: '20px' }} />
+      <img src={props.item.src} className="shadowed" style={{ maxWidth: '80%', maxHeight: 'calc(100% - 20px)', border: '10px solid #fff', borderRadius: '20px' }} />
     </div>
-    <div className="w-40 ml3 h-100 flex flex-column justify-center">
+    <div className="w-40 ml3 flex flex-column justify-center">
       <h1 className="st st-yellow mb5"><nobr>Our consumer</nobr></h1>
       <Skewer angle={10}>
         <div className="w-80">
@@ -125,7 +145,7 @@ const CoreValuesItem = props => {
       <h2 className="white mt4">{props.title}</h2>
       <p className="text-dark tc">{props.content}</p>
     </div>
-    <div className="w-100 flex h-100 top-0 left-0 absolute justify-center">
+    <div className="w-100 h-100 flex top-0 left-0 absolute justify-center">
       <div className="w-80 h-100 flex justify-center items-center">
         <div style={{
           position: 'absolute',
@@ -143,19 +163,19 @@ const CoreValuesItem = props => {
   </div>
 }
 
-const GarmentLeftItem = ({ item }) => {
-  return <div className="w-90 pa2 h-100 flex relative items-center">
-      <div data-uk-slider>
-        <ul className="uk-slider-items uk-child-width-1-1">
+const GarmentLeftItem = ({ item, isActive }) => {
+  return <div className="w-90 pa2 h-100 flex relative items-center overflow-hidden">
+      <div data-uk-slider className="h-100 flex flex-column justify-center" style={{ height: '50vh' }}>
+        <ul className="uk-slider-items uk-child-width-1-1 h-100">
           {item.items.map((subImage, index) =>
             <li className="garment-gallery-item">
-              <Image src={subImage} />
+              {isActive && <Image src={subImage} />}
             </li>
           )}
         </ul>
-        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin white-dotnav"></ul>
+        <ul class="uk-slider-nav uk-dotnav uk-flex-center white-dotnav mb1"></ul>
 
-        <div className="absolute bottom-0 w-100">
+        <div className="absolute w-100 bottom-0">
           <a class="uk-position-center-left uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-previous uk-slider-item="previous"><span data-uk-icon="icon: chevron-left; ratio: 1"></span></a>
           <a class="uk-position-center-right uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-next uk-slider-item="next"><span data-uk-icon="icon: chevron-right; ratio: 1"></span></a>
         </div>
@@ -180,9 +200,79 @@ const GarmentLeftItem = ({ item }) => {
 
 const IndexPage = () => {
 
-  if (typeof window !== 'undefined') {
-    UIKit.use(icons);
+
+  const { registerEvent, refreshScrollEvent } = useContext(ScrollContext);
+
+
+
+
+  // Video pause and play Handling
+
+  // const bufferRegistered = {};
+  // const [registeredViews, setRegisteredViews] = useState({});
+  
+  // const registerView = (e, fn, name) => {
+  //   if (!{ ...bufferRegistered, ...registeredViews }[name]) {
+  //     bufferRegistered[name] = {
+  //       element: e,
+  //       name,
+  //       state: {
+  //         arrived: false,
+  //         left: false
+  //       },
+  //       action: fn
+  //     }
+  //     setRegisteredViews({ ...registeredViews, ...bufferRegistered })
+  //     refreshScrollEvent();
+  //   }
+  // }
+
+  
+
+  // const getViews = () => registeredViews;
+
+  // const scrollHandler = e => {
+  //   const views = getViews();
+  //   console.log(views);
+  //   Object.keys(views).forEach(view => {
+  //     view = views[view];
+  //     if (view.element) {
+  //       const bb = view.element.getBoundingClientRect();
+
+  //       if (bb.top < window.innerHeight) view.state.arrived = true;
+  //       else view.state.arrived = false;
+
+  //       if (bb.bottom < 0) view.state.left = true;
+  //       else view.state.left = false;
+  //     }
+
+  //     view.action(view);
+  //   })
+  // }
+
+  // useEffect(() => {
+  //   registerEvent('something', e => console.log('something'))
+  //   registerEvent('intersection-observer-like', e => scrollHandler(e))
+  // }, [])
+
+  const toggleVideoOnHover = (e, target) => {
+    if (e) {
+      target = document.getElementById(target);
+      e.addEventListener('mouseover', () => {
+        if (getWindow.interacted && target.paused) target.play();
+      })
+      e.addEventListener('mouseleave', () => {
+        if (!target.paused) target.pause()
+      });
+    }
   }
+
+
+
+
+  
+
+  if (typeof window !== 'undefined') UIKit.use(icons);
 
   const { nostos: nostosImages } = require('../data.json');
 
@@ -230,6 +320,7 @@ const IndexPage = () => {
   const garmentsDivision = garmentItems.reduce((acc, current) => acc + current.items.length, 0);
 
   const getGarmentsCursor = cursor => {
+
     let traversed = 0;
     let garmentsCursor = 0;
     while (traversed + garmentItems[garmentsCursor].items.length < cursor) {
@@ -262,7 +353,11 @@ const IndexPage = () => {
   const [whatWeOfferExpandable, setWhatWeOfferExpandable] = useState(false);
   const [nostosExpandable, setNostosExpandable] = useState(false);
 
-  return <Layout>
+  useEffect(() => {
+    if (isWindow) getWindow.document.body.click();
+  }, [])
+
+  return <>
     <div className="flex">
       <div className="w-sidebar">
         <Sidebar />
@@ -275,7 +370,7 @@ const IndexPage = () => {
         
         <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && (window.innerHeight)}>
           <StickySlider divisions={1}>
-            <div className="z-2 standard-container top-0 left-0 h-100v overflow-hidden shadowed-down" id="about"> 
+            <div className="z-2 standard-container top-0 left-0 h-100v overflow-hidden shadowed-down" id="about">
                 <div className="absolute top-0 left-0 w-100v h-100v">
                   <img src={require('../assets/images/white-print.png')} className="w-100" />
                 </div>
@@ -285,7 +380,7 @@ const IndexPage = () => {
                         <div className="w-100">
                           <h1 className="st st-yellow">About us</h1>
                           <div className="br4 bg-white tc pa4 shadowed">
-                            <p>
+                            <p align="left">
                               We are a maximalist fashion brand that believes in following the philosophy of "Creating stories through chaos". We aim at curating art for fashion. Our Focus is to provide clothing described as wearable art, bringing art onto a platform to the masses who want to be the connoisseur of their own story. 
                             </p>
                             <div className="flex justify-center w-100 mt4">
@@ -314,9 +409,9 @@ const IndexPage = () => {
 
 
         <div className="h-100v" id="what-we-offer"></div>
-        <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ width: 'calc(100vw - 60px)', position: 'fixed' }}>
+        <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ width: 'calc(100vw - 60px)', position: 'fixed' }} ref={e => toggleVideoOnHover(e, 'wdwo-video')}>
           <div className="absolute left-0 top-0 h-100 w-100 z-1">
-            <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
+            <img src={require('../assets/images/blue-print.png')} style={{ transform: 'scale(1.04)' }} className="w-100 h-100" />
           </div>
           <div className="w-100v h-100v left-0 top-0 absolute z-2 flex items-center justify-center">
             <div className="subcontainer flex-ns">
@@ -348,7 +443,7 @@ const IndexPage = () => {
               </div>
               <div className="subcontainer-big">
                   <div className="banner-image">
-                    <video className="br4 shadowed w-80" style={{ border: '10px solid var(--bgDark)', background: 'rgba(0,0,0,0.8)' }} autoPlay controls loop muted>
+                    <video className="br4 shadowed w-80" style={{ border: '10px solid var(--bgDark)', background: 'rgba(0,0,0,0.8)' }} id="wdwo-video" autoPlay controls loop>
                       <source src={require('../assets/videos/wdwo.mp4')} type="video/mp4" />
                     </video>
                   </div>
@@ -362,7 +457,11 @@ const IndexPage = () => {
             <img src={require('../assets/images/white-print.png')} className="w-100v sticky h-100v top-0 bottom-0" />
           </div>
           <div className="subcontainer relative z-2">
-            <h1 className="absolute top-0 st st-yellow pt5">Our Value proposition</h1>
+          <div className="w-33 flex justify-center">
+              <div className="w-80 tl">
+                <h1 className="absolute top-0 st st-yellow pt5">Our Value proposition</h1>
+              </div>
+            </div>
             
             <div className="w-100" style={{ marginTop: '200px' }}>
 
@@ -387,7 +486,7 @@ const IndexPage = () => {
                 content="We believe in indulgence, living life to the fullest  Art in itself is extravagant and found with layers of subtext. We intend to curate the same meaning of art for fashion maximalists."
                 src={require('../assets/images/vp-extravagance.png')}
                 icon={require('../assets/images/icons/vp-extravagance.png')}
-                imageWidth={80}
+                imageWidth={70}
                 translateX={-40}
               />
 
@@ -401,10 +500,8 @@ const IndexPage = () => {
             <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
           </div>
           <div id="of-core-values" className="subcontainer relative z-2">
-            <div className="w-33 flex justify-center">
-              <div className="w-80 tl">
+            <div className="flex justify-center">
                 <h1 className="st st-blue">Our Core values</h1>
-              </div>
             </div>
             <div className="flex mt4">
                 <CoreValuesItem
@@ -430,7 +527,7 @@ const IndexPage = () => {
 
         <StickySlider onChange={e => {
           setConsumerCursor(e)
-        }} divisions={consumerItems.length} name="consumer">
+        }} divisions={consumerItems.length} divisionHeight={50} name="consumer">
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="consumer">
             <img src={require('../assets/images/white-print.png')} className="w-100 h-100" />
           </div>
@@ -449,33 +546,35 @@ const IndexPage = () => {
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
             <img src={require('../assets/images/nostos-bg.png')} className="w-100" />
           </div>
-          <div className="subcontainer flex relative z-2 items-center">
-            <div className="subcontainer-small pr3">
-              <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
-              <div className="bg-blur glass-morph white pa4 br5 p-margin">
-                <BannerIcon src={require('../assets/images/icons/nostos.svg')} />
-                <h2 className="white">Lights. Camera. Action!</h2>
-                <p>Nostos means home in Greek. Nostalgia is a yearning for a home. The digital revolution defining the turn of the century brought significant changes which could also affect emotional perspectives.</p>
-                
-                <div className="overflow-hidden" style={{
-                    transition: '0.2s',
-                    height: nostosExpandable ? '280px' : '0'
-                  }}>
-                    <p>Everything we could desire in space or time is right in front of us – but there is still space for nostalgia. We are nostalgic about the lost indirectness; a connection unmediated by computers, with other people or nature. Contemporary nostalgia is not merely a desire for an existing, concrete home, but more for the abstract "homeliness".</p>
-                    <p>With every piece, the progression of nostalgia is showcased, including the complexity of emotions. It depicts that the existence of two concepts in the same plane, acknowledging the past might look like a better place to be, but it's not. Through NOSTOS, a platform that encourages it as well as questions it. The idea is to create a home to come back to, which is not defined by time and space conventions. Nostos represents a deeper appreciation for the past and a keen interest in the future. Through NOSTOS, a rich & eccentric amalgamation of textiles, silhouettes & tactile surfaces is created to get thematically transported to a better time.</p>
+          <div className="w-100 flex items-center justify-center h-100v" ref={e => toggleVideoOnHover(e, 'nostos-video')}>
+            <div className="subcontainer flex relative z-2 items-center">
+              <div className="subcontainer-small pr3">
+                <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
+                <div className="bg-blur glass-morph white pa4 br5 p-margin">
+                  <BannerIcon src={require('../assets/images/icons/nostos.svg')} />
+                  <h2 className="white">Lights. Camera. Action!</h2>
+                  <p>Nostos means home in Greek. Nostalgia is a yearning for a home. The digital revolution defining the turn of the century brought significant changes which could also affect emotional perspectives.</p>
+                  
+                  <div className="overflow-hidden" style={{
+                      transition: '0.2s',
+                      height: nostosExpandable ? '280px' : '0'
+                    }}>
+                      <p>Everything we could desire in space or time is right in front of us – but there is still space for nostalgia. We are nostalgic about the lost indirectness; a connection unmediated by computers, with other people or nature. Contemporary nostalgia is not merely a desire for an existing, concrete home, but more for the abstract "homeliness".</p>
+                      <p>With every piece, the progression of nostalgia is showcased, including the complexity of emotions. It depicts that the existence of two concepts in the same plane, acknowledging the past might look like a better place to be, but it's not. Through NOSTOS, a platform that encourages it as well as questions it. The idea is to create a home to come back to, which is not defined by time and space conventions. Nostos represents a deeper appreciation for the past and a keen interest in the future. Through NOSTOS, a rich & eccentric amalgamation of textiles, silhouettes & tactile surfaces is created to get thematically transported to a better time.</p>
+                  </div>
+
+                  <button className="uk-button uk-button-default" style={{ color: '#fff', marginTop: '30px', borderColor: '1px solid #fff' }} onClick={() => setNostosExpandable(!nostosExpandable)}>
+                    {nostosExpandable ? 'Hide' : 'Read more'}
+                  </button>
                 </div>
-
-                <button className="uk-button uk-button-default" style={{ color: '#fff', marginTop: '30px', borderColor: '1px solid #fff' }} onClick={() => setNostosExpandable(!nostosExpandable)}>
-                  {nostosExpandable ? 'Hide' : 'Read more'}
-                </button>
               </div>
-            </div>
 
-            <div className="subcontainer-big h-100 flex">
-              <div className="pa2 w-100">
-                <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} autoPlay controls muted loop>
-                  <source src={require('../assets/videos/nostos.mp4')} type="video/mp4" />
-                </video>
+              <div className="subcontainer-big h-100 flex items-center">
+                <div className="pa2 w-100">
+                  <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} id="nostos-video" autoPlay controls loop>
+                    <source src={require('../assets/videos/nostos.mp4')} type="video/mp4" />
+                  </video>
+                </div>
               </div>
             </div>
           </div>
@@ -495,20 +594,21 @@ const IndexPage = () => {
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
             <img src={require('../assets/images/nostos-background.png')} className="w-100 h-100" />
           </div>
+          <div className="absolute left-0" style={{ top: '-80px' }}>
+            <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000' }}>NOSTOS</h1>
+          </div>
           <div className="subcontainer flex relative z-2 w-100 h-100">
             <div className="w-50 h-100 flex items-center justify-center">
-                {/* <Gallery
+                <Gallery
                   items={garmentItems} 
                   current={garmentsCursor}
                   scrollLength={typeof window !== 'undefined' && window.innerHeight}
                   Component={GarmentLeftItem}
-                  className="w-90"
-                  style={{ height: '60vh' }}
                   noNavigation={true}
-                /> */}
+                />
             </div>
             <div className="w-50 h-100v relative flex items-center justify-center">
-                {garmentItems.map((_item, index) => <GarmentItem item={_item} current={garmentsCursor} selected={index === garmentsCursor} index={index} />)}
+                {garmentItems.map((_item, index) => <GarmentItem item={_item} current={garmentsCursor} selected={index === garmentsCursor} itemIndex={index} />)}
             </div>
           </div>
         </StickySlider>
@@ -568,7 +668,8 @@ const IndexPage = () => {
       </div>
     </div>
     <Loader />
-  </Layout>
+  </>
 }
 
-export default IndexPage;
+const IndexPageWrapper = () => <ScrollContextProvider><IndexPage /></ScrollContextProvider>
+export default IndexPageWrapper;

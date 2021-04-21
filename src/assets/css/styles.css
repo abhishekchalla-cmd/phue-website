@@ -157,7 +157,7 @@ p {
 
 .standard-container .subcontainer {
     width: 90%;
-    max-width: 1600px;
+    max-width: 1300px;
 }
 
 .standard-container h1 {
@@ -362,8 +362,8 @@ p {
 }
 
 .garment-gallery-item {
-    height: 590px;
-    width: 590px;
+    height: calc(50vh - 50px);
+    width: max-content;
     background: var(--bgDark);
     border: 10px solid #fff;
     border-radius: 20px;
