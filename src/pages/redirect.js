@@ -1,7 +1,10 @@
 import { navigate } from 'gatsby-link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Redirect(props) {
-    navigate('/');
+    useEffect(() => {
+        navigate('/');
+    }, []);
+
     return <></>
 }
