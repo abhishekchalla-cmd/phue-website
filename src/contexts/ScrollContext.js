@@ -20,11 +20,14 @@ export default function ScrollContextProvider(props) {
         }
     }
 
+    const [redirected, setRedirected] = useState(false);
+
     useEffect(() => refreshScrollEvent(), [allEvents]);
 
     return <ScrollContext.Provider value={{
         registerEvent,
-        refreshScrollEvent
+        refreshScrollEvent,
+        redirected, setRedirected
     }}>
         {props.children}
     </ScrollContext.Provider>

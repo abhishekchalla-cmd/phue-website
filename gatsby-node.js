@@ -19,7 +19,7 @@ res.map(item => {
             files: []
         });
         files.map(file => {
-            data.nostos[data.nostos.length - 1].files.push('nostos/' + counter + '/' + file);
+            if(file !== '.DS_Store') data.nostos[data.nostos.length - 1].files.push('nostos/' + counter + '/' + file);
         })
     }
 });

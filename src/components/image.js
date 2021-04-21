@@ -2,7 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
-const Image = ({ src, className, style }) => {
+const Image = ({ src, className, style, onLoad, show }) => {
   const data = useStaticQuery(graphql`
     query {
       allFile(filter: {
@@ -28,7 +28,7 @@ const Image = ({ src, className, style }) => {
   }).map(edge => edge.node);
 
   if (match.length > 0) {
-    return <img className={className} style={style} src={match[0].publicURL} />
+    return <img className={className} style={style} onLoad={e => onLoad(e)} {...(show ? { src: match[0].publicURL} : {})} />
   }
   
   return null;

@@ -25,6 +25,7 @@ import nostosImage4 from '../assets/images/nostos-4.png';
 import nostosImage5 from '../assets/images/nostos-5.png';
 import ScrollContextProvider, { ScrollContext } from "../contexts/ScrollContext";
 import { getWindow, isWindow } from '../utils/scroll';
+import { navigate } from "gatsby-link";
 
 
 
@@ -35,15 +36,14 @@ import { getWindow, isWindow } from '../utils/scroll';
 
 
 getWindow.interacted = false;
+getWindow.redirected = false;
 getWindow.addEventListener && getWindow.addEventListener('click', () => getWindow.interacted = true);
 
 const GarmentItem = props => {
 
   const [isToggleOpen, setIsToggleOpen] = useState(false);
-  console.log(props);
 
   function changeToggle() {
-    console.log(props.itemIndex);
     const elem = document.getElementById(props.itemIndex);
     if (elem.style.height == 'auto') elem.style.height = '100px';
     else elem.style.height = 'auto';
@@ -167,9 +167,10 @@ const GarmentLeftItem = ({ item, isActive }) => {
   return <div className="w-90 pa2 h-100 flex relative items-center overflow-hidden">
       <div data-uk-slider className="h-100 flex flex-column justify-center" style={{ height: '50vh' }}>
         <ul className="uk-slider-items uk-child-width-1-1 h-100">
-          {item.items.map((subImage, index) =>
-            <li className="garment-gallery-item">
-              {isActive && <Image src={subImage} />}
+          {item.items.map((subImage, index) => isActive && <li className="garment-gallery-item" style={{ border: '0' }}>
+              <Image src={subImage} show={isActive} onLoad={e => {
+                e.target.parentNode.style.border = '10px solid #f3e4c2';
+              }} />
             </li>
           )}
         </ul>
@@ -201,7 +202,7 @@ const GarmentLeftItem = ({ item, isActive }) => {
 const IndexPage = () => {
 
 
-  const { registerEvent, refreshScrollEvent } = useContext(ScrollContext);
+  const { registerEvent, refreshScrollEvent, redirected, setRedirected } = useContext(ScrollContext);
 
 
 
@@ -354,7 +355,10 @@ const IndexPage = () => {
   const [nostosExpandable, setNostosExpandable] = useState(false);
 
   useEffect(() => {
-    if (isWindow) getWindow.document.body.click();
+    if (!getWindow.redirected) {
+      getWindow.redirected = true;
+      navigate('/redirect')
+    }
   }, [])
 
   return <>
@@ -419,7 +423,7 @@ const IndexPage = () => {
                 <h1 className="st st-blue">What do we offer?</h1>
                 <div className="bg-blur br4 pa4 mv4 w-100 text-dark glass-morph">
                   <BannerIcon src={require('../assets/images/icons/wdwo.svg')} />
-                  <h2 className="white">Lorem</h2>
+                  <h2 className="white">Wearable art and Maximalism</h2>
                   <p className="mt3">
                     Clothing described as wearable art, bringing art onto a platform meant for a bridge market that is the perfect blend between commercial & luxury.
                   </p>
@@ -594,8 +598,8 @@ const IndexPage = () => {
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
             <img src={require('../assets/images/nostos-background.png')} className="w-100 h-100" />
           </div>
-          <div className="absolute left-0" style={{ top: '-80px' }}>
-            <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000' }}>NOSTOS</h1>
+          <div className="absolute left-0" style={{ bottom: '-120px' }}>
+            <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000', textTransform: 'lowercase' }}>nostos</h1>
           </div>
           <div className="subcontainer flex relative z-2 w-100 h-100">
             <div className="w-50 h-100 flex items-center justify-center">
