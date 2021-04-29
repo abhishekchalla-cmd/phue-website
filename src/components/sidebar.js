@@ -1,31 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Sidebar(props) {
+
+    const [current, setCurrent] = useState(0);
+    const options = [
+        {
+            icon: 'home',
+            tooltip: 'Home',
+            href: '#home'
+        },
+        {
+            icon: 'info',
+            tooltip: 'About',
+            href: '#about'
+        },
+        {
+            icon: 'album',
+            tooltip: 'Collections',
+            href: '#nostos'
+        },
+        {
+            icon: 'receiver',
+            tooltip: 'Contact',
+            href: '#contact'
+        }
+    ]
+
     return <div className="fixed top-0 left-0 h-100v flex flex-column justify-end items-center ph2 w-sidebar z-8" style={{
         background: '#0f2733'
     }}>
-        <a href="#home">
-            <div className="pa2 pv4 bv-dark">
-                <span data-uk-icon="icon: home; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Home"></span>
+        {options.map((option, index) => <a href={option.href}>
+            <div className="pa2 pt4" onClick={() => setCurrent(index)}>
+                <span data-uk-icon={`icon: ${option.icon}; ratio: 1.2`} style={{
+                    transition: '0.2s',
+                    color: current === index ? '#fff' : 'rgba(255, 255, 255, 0.4)',
+                    transform: current === index ? 'scale(1.5)' : 'scale(1)'
+                }} uk-tooltip={option.tooltip}></span>
             </div>
-        </a>
-
-        <a href="#about">
-            <div className="pa2 pt4">
-                <span data-uk-icon="icon: info; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="About"></span>
-            </div>
-        </a>
-
-        <a href="#nostos">
-            <div className="pa2 pt4">
-                <span data-uk-icon="icon: album; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Collections"></span>
-            </div>
-        </a>
-
-        <a href="mailto:panyagupta@gmail.com">
-            <div className="pa2 pv4">
-                <span data-uk-icon="icon: receiver; ratio: 1.2" style={{ color: '#fff' }} uk-tooltip="Contact"></span>
-            </div>
-        </a>
+        </a>)}
+        <div className="pv3"></div>
     </div>
 }

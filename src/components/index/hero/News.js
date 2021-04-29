@@ -40,7 +40,7 @@ const News = props => {
     const changeCard = diff => {
         diff = index + diff;
         diff = diff % news.length;
-        if (diff < 0) diff = news.length - (-1 * diff) - 1;
+        if (diff < 0) diff = news.length - (-1 * diff);
         cardRef.current.classList.add('disappear');
         clearTimeout(timeout);
         timeout = setTimeout(() => setIndex(diff), transitionPeriod);
@@ -48,7 +48,6 @@ const News = props => {
     }
 
     useEffect(() => {
-        console.log('index changed');
         if (news[index]) {
             let { title, subtitle, link, coverImage } = news[index];
             setTitle(title);

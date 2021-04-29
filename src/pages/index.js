@@ -13,9 +13,9 @@ import Loader from '../components/loader';
 import UIKit from 'uikit/dist/js/uikit.min';
 import icons from 'uikit/dist/js/uikit-icons.min';
 
-import consumerImage1 from '../assets/images/consumer-1.png';
-import consumerImage2 from '../assets/images/consumer-2.png';
-import consumerImage3 from '../assets/images/consumer-3.png';
+import consumerImage1 from '../assets/images/consumer-1.jpg';
+import consumerImage2 from '../assets/images/consumer-2.jpg';
+import consumerImage3 from '../assets/images/consumer-3.jpg';
 import logo from '../assets/images/logo.png';
 
 import nostosImage1 from '../assets/images/nostos-1.png';
@@ -41,13 +41,10 @@ getWindow.addEventListener && getWindow.addEventListener('click', () => getWindo
 
 const GarmentItem = props => {
 
-  const [isToggleOpen, setIsToggleOpen] = useState(false);
-
-  function changeToggle() {
-    const elem = document.getElementById(props.itemIndex);
-    if (elem.style.height == 'auto') elem.style.height = '100px';
-    else elem.style.height = 'auto';
-  }
+  const [isOpen, setIsOpen] = useState(false);
+  const descriptionSplit = props.item.description.split('.');
+  const desc1 = descriptionSplit[0];
+  const desc2 = descriptionSplit.slice(1, descriptionSplit.length).join('.');
 
   return <div className={"h-80 relative flex w-100 items-center justify-start gallery-right-item " + (props.selected ? "selected" : "unselected")}>
     <div className="absolute bottom-0">
@@ -57,12 +54,18 @@ const GarmentItem = props => {
       <h1 className="white" style={{ fontSize: '100px' }}>{props.itemIndex + 1}</h1>
       <div className="bg-blur glass-morph br4 pa4">
           <h2 className="white">{props.item.title}</h2>
+          <p className="black">{desc1}</p>
           <div style={{
             color: '#000',
             transition: '0.2s',
-            // textOverflow: 'ellipsis',
-            // overflow: 'hidden'
-          }} className="mv3" id={props.itemIndex + ''}>{props.item.description}</div>
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+          }} className="mv3">
+            <div style={{ transition: '0.2s', marginBottom: isOpen ? '0' : '-110%' }}>
+              {desc2}
+            </div>
+          </div>
+          <button onClick={e => setIsOpen(!isOpen)} style={{ color: '#fff' }} className="uk-button uk-button-default">Read more</button>
       </div>
     </div>
   </div>;
@@ -168,7 +171,7 @@ const GarmentLeftItem = ({ item, isActive }) => {
       <div data-uk-slider className="h-100 flex flex-column justify-center" style={{ height: '50vh' }}>
         <ul className="uk-slider-items uk-child-width-1-1 h-100">
           {item.items.map((subImage, index) => isActive && <li className="garment-gallery-item" style={{ border: '0' }}>
-              <Image src={subImage} show={isActive} onLoad={e => {
+              <img src={'/static/' + subImage} show={isActive} onLoad={e => {
                 e.target.parentNode.style.border = '10px solid #f3e4c2';
               }} />
             </li>
@@ -181,7 +184,7 @@ const GarmentLeftItem = ({ item, isActive }) => {
           <a class="uk-position-center-right uk-position-small uk-hidden-hover z-7 slider-navigation" href="#" uk-slidenav-next uk-slider-item="next"><span data-uk-icon="icon: chevron-right; ratio: 1"></span></a>
         </div>
       </div>
-  </div>
+    </div>
 }
 
 
@@ -280,7 +283,7 @@ const IndexPage = () => {
   const garmentItems = [
     {
         title: 'The Time Leaper',
-        description: `Presenting the first stage pf Nostalgia: Restoration. Travel back into the past by combining polyurethane laminated fabric with polyester backing in the bodysuit, emphasizing the shoulders through volume and shape; Interweaving memories with a range of unconventional material. Combining holographic rexine interwoven with laser cut plastic mesh stitched on top of PVC`,
+        description: `Presenting the first stage of Nostalgia: Restoration. Travel back into the past by combining polyurethane laminated fabric with polyester backing in the bodysuit, emphasizing the shoulders through volume and shape; Interweaving memories with a range of unconventional material. Combining holographic rexine interwoven with laser cut plastic mesh stitched on top of PVC`,
         background: 'linear-gradient(to bottom right, #474C18, #B08059)',
         image: nostosImage1,
         items: nostosImages[0].files
@@ -371,16 +374,15 @@ const IndexPage = () => {
 
         <Hero />
 
-        
-        <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && (window.innerHeight)}>
+        <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && window.innerHeight}>
           <StickySlider divisions={1}>
-            <div className="z-2 standard-container top-0 left-0 h-100v overflow-hidden shadowed-down" id="about">
+            <div className="z-2 standard-container top-0 left-0 h-100v overflow-hidden shadowed-down">
                 <div className="absolute top-0 left-0 w-100v h-100v">
-                  <img src={require('../assets/images/white-print.png')} className="w-100" />
+                  <img src={require('../assets/images/white-print.jpg')} className="w-100" />
                 </div>
                 <div className="h-100v w-100v absolute flex items-center justify-center">
                   <div className="subcontainer flex-ns">
-                      <div className="subcontainer-small">
+                      <div className="subcontainer-small flex items-center justify-center">
                         <div className="w-100">
                           <h1 className="st st-yellow">About us</h1>
                           <div className="br4 bg-white tc pa4 shadowed">
@@ -399,8 +401,8 @@ const IndexPage = () => {
 
                       <div className="subcontainer-big">
                         {/* <Skewer className="w-100 h-100" angle={10} disableY={true}> */}
-                          <div className="banner-image">
-                            <img src={require('../assets/images/about-us.png')} style={{ maxWidth: 'unset !important', width: '200% !important' }} />
+                          <div>
+                            <img src={require('../assets/images/about-us.png')} style={{ maxWidth: 'unset !important', width: '100% !important', transform: 'scale(2)' }} />
                           </div>
                         {/* </Skewer> */}
                       </div>
@@ -415,7 +417,7 @@ const IndexPage = () => {
         <div className="h-100v" id="what-we-offer"></div>
         <div className="standard-container top-0 right-0 pv5 h-100v bg-sky-blue z-1" style={{ width: 'calc(100vw - 60px)', position: 'fixed' }} ref={e => toggleVideoOnHover(e, 'wdwo-video')}>
           <div className="absolute left-0 top-0 h-100 w-100 z-1">
-            <img src={require('../assets/images/blue-print.png')} style={{ transform: 'scale(1.04)' }} className="w-100 h-100" />
+            <img src={require('../assets/images/blue-print.jpg')} style={{ transform: 'scale(1.04)' }} className="w-100 h-100" />
           </div>
           <div className="w-100v h-100v left-0 top-0 absolute z-2 flex items-center justify-center">
             <div className="subcontainer flex-ns">
@@ -447,7 +449,7 @@ const IndexPage = () => {
               </div>
               <div className="subcontainer-big">
                   <div className="banner-image">
-                    <video className="br4 shadowed w-80" style={{ border: '10px solid var(--bgDark)', background: 'rgba(0,0,0,0.8)' }} id="wdwo-video" autoPlay controls loop>
+                    <video className="br4 shadowed w-80" style={{ border: '10px solid var(--bgDark)', background: 'rgba(0,0,0,0.8)' }} id="wdwo-video" autoPlay muted controls loop>
                       <source src={require('../assets/videos/wdwo.mp4')} type="video/mp4" />
                     </video>
                   </div>
@@ -458,7 +460,7 @@ const IndexPage = () => {
 
         <div className="standard-container pv5 bg-white z-2 shadowed-up" id="value-proposition">
           <div className="absolute w-100 h-100 z-1">
-            <img src={require('../assets/images/white-print.png')} className="w-100v sticky h-100v top-0 bottom-0" />
+            <img src={require('../assets/images/white-print.jpg')} className="w-100v sticky h-100v top-0 bottom-0" />
           </div>
           <div className="subcontainer relative z-2">
           <div className="w-33 flex justify-center">
@@ -474,6 +476,8 @@ const IndexPage = () => {
                 content="Integration of art & Design in the same plane; to align them in a consistent harmony ;giving our consumers a feeling of freedom and confidence to be in touch with their inner self."
                 src={require('../assets/images/vp-integration.png')}
                 icon={require('../assets/images/icons/vp-integration.png')}
+                imageWidth={40}
+                translateX={-15}
               />
 
               <ValuePropositionItem
@@ -482,7 +486,8 @@ const IndexPage = () => {
                 src={require('../assets/images/vp-innovation.png')}
                 icon={require('../assets/images/icons/vp-innovation.png')}
                 reverse={true}
-                imageWidth={80}
+                imageWidth={60}
+                translateX={-30}
               />
 
               <ValuePropositionItem
@@ -501,7 +506,7 @@ const IndexPage = () => {
 
         <div className="z-3 standard-container pv5 h-100v top-0 right-0 z-1 bg-sky-blue">
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="core-values">
-            <img src={require('../assets/images/blue-print.png')} className="w-100 h-100" />
+            <img src={require('../assets/images/blue-print.jpg')} className="w-100 h-100" />
           </div>
           <div id="of-core-values" className="subcontainer relative z-2">
             <div className="flex justify-center">
@@ -533,7 +538,7 @@ const IndexPage = () => {
           setConsumerCursor(e)
         }} divisions={consumerItems.length} divisionHeight={50} name="consumer">
           <div className="absolute left-0 top-0 h-100 w-100 z-1" id="consumer">
-            <img src={require('../assets/images/white-print.png')} className="w-100 h-100" />
+            <img src={require('../assets/images/white-print.jpg')} className="w-100 h-100" />
           </div>
           <div className="subcontainer relative z-2 h-100 flex flex-column justify-center">
             <Gallery
@@ -547,13 +552,14 @@ const IndexPage = () => {
         </StickySlider>
 
         <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-dark" style={{ marginTop: '-100vh' }}>
-          <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
-            <img src={require('../assets/images/nostos-bg.png')} className="w-100" />
+          <div className="absolute left-0 top-0 h-100 w-100 z-1">
+            <img src={require('../assets/images/nostos-bg.jpg')} className="w-100" />
           </div>
           <div className="w-100 flex items-center justify-center h-100v" ref={e => toggleVideoOnHover(e, 'nostos-video')}>
             <div className="subcontainer flex relative z-2 items-center">
               <div className="subcontainer-small pr3">
                 <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
+                <div name="nostos"></div>
                 <div className="bg-blur glass-morph white pa4 br5 p-margin">
                   <BannerIcon src={require('../assets/images/icons/nostos.svg')} />
                   <h2 className="white">Lights. Camera. Action!</h2>
@@ -575,7 +581,7 @@ const IndexPage = () => {
 
               <div className="subcontainer-big h-100 flex items-center">
                 <div className="pa2 w-100">
-                  <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} id="nostos-video" autoPlay controls loop>
+                  <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} id="nostos-video" autoPlay muted controls loop>
                     <source src={require('../assets/videos/nostos.mp4')} type="video/mp4" />
                   </video>
                 </div>
@@ -595,11 +601,11 @@ const IndexPage = () => {
             background: garmentItems[garmentsCursor >= 0 && garmentsCursor < garmentItems.length ? garmentsCursor : 0].background
           }}
         >
-          <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
-            <img src={require('../assets/images/nostos-background.png')} className="w-100 h-100" />
-          </div>
-          <div className="absolute left-0" style={{ bottom: '-120px' }}>
-            <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000', textTransform: 'lowercase' }}>nostos</h1>
+          {/* <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
+            <img src={require('../assets/images/nostos-background.jpg')} className="w-100 h-100" />
+          </div> */}
+          <div className="absolute left-0" style={{ top: '-80px' }}>
+            <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000' }}>NOSTOS</h1>
           </div>
           <div className="subcontainer flex relative z-2 w-100 h-100">
             <div className="w-50 h-100 flex items-center justify-center">
@@ -619,7 +625,7 @@ const IndexPage = () => {
 
         <div className="standard-container bg-white z-6" style={{ minHeight: '60vh' }}>
           <div className="absolute left-0 top-0 h-100 w-100 z-1">
-            <img src={require('../assets/images/white-print.png')} className="w-100 h-100" />
+            <img src={require('../assets/images/white-print.jpg')} className="w-100 h-100" />
           </div>
           <div className="subcontainer relative z-2 flex flex-column items-center justify-center">
             <button className="uk-button btn-wide shop-btn" style={{ borderRadius: '10px !important'}}>SHOP NOW</button>

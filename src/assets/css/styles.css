@@ -257,10 +257,12 @@ p {
 
 .gallery-right-item.unselected {
     opacity: 0;
+    pointer-events: none;
 }
 
 .gallery-right-item.selected {
     opacity: 1;
+    pointer-events: all;
 }
 
 .search-container {

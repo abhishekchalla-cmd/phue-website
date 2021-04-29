@@ -15,7 +15,7 @@ export default function Gallery(props) {
     return <div className={"w-100 h-75 " + (props.className ? props.className : '')} style={props.style ? props.style : {}}>
         <div className="flex h-100 items-center justify-center">
             {items.map((item, cursor) => <div className={'gallery-item ' + (cursor === current ? 'visible' : 'invisible')}>
-                <Component item={{ ...item }} index={cursor} isActive={cursor === current}></Component>
+                <Component item={{ ...item }} index={cursor} key={cursor} isActive={cursor === current}></Component>
             </div>)}
         </div>
         {!props.noNavigation && <div className="w-100 flex">

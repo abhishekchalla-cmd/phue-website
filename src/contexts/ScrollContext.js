@@ -14,7 +14,6 @@ export default function ScrollContextProvider(props) {
     }
 
     const refreshScrollEvent = () => {
-        console.log(allEvents);
         window.onscroll = e => {
             Object.keys(allEvents).forEach(key => allEvents[key](e));
         }
