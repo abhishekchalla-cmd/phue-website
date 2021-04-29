@@ -9,7 +9,11 @@ let counter = 0;
 
 const root = './src/assets/images/nostos';
 const res = fs.readdirSync(path.resolve(__dirname, root));
+
+if (!fs.existsSync('./public')) fs.mkdirSync('./public');
+if (!fs.existsSync('./public/static')) fs.mkdirSync('./public/static');
 if (!fs.existsSync('./public/static/nostos')) fs.mkdirSync('./public/static/nostos');
+
 res.map(item => {
     const route = path.resolve(__dirname, root, item);
     const stats = fs.statSync(route);
