@@ -22,7 +22,7 @@ export default function StickyComponent(props) {
                     setPosition('sticky');
                 } else if (entry.intersectionRatio === 1) setPosition('fixed');
             })
-        }} thresholds={0}>
+        }} thresholds={0} id={props.id}>
             <div className={props.className} style={{ position, ...props.style }} ref={containerRef}>
                 {props.children}
             </div>

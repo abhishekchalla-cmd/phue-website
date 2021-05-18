@@ -11,7 +11,7 @@ export default function IntersectionComponent(props) {
         setObserver(observer);
     }, [])
 
-    return <div ref={containerRef}>
+    return <div ref={containerRef} id={props.id}>
         {props.children}
     </div>
 }

@@ -15,6 +15,10 @@ body {
     overflow-x: hidden;
 }
 
+img {
+    max-width: unset !important;
+}
+
 a:link, a:visited {
     color: var(--text-color);
     transition: 0.2s;
@@ -62,6 +66,10 @@ p {
 
 .w-100v {
     width: 100vw;
+}
+
+.mw-100-imp {
+    max-width: 100% !important;
 }
 
 .sticky { position: sticky; }

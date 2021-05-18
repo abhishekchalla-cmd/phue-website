@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getScrollPos } from '../utils/scroll';
 
 export default function Gallery(props) {

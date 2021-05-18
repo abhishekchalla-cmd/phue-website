@@ -5,9 +5,7 @@ import Hero from "../components/index/Hero";
 import StickyComponent from "../components/StickyComponent";
 import StickySlider from '../components/StickySlider';
 import Gallery from '../components/Gallery';
-import Layout from '../components/Layout';
 import Skewer from "../components/Skewer";
-import Image from '../components/image';
 import Loader from '../components/loader';
 
 import UIKit from 'uikit/dist/js/uikit.min';
@@ -24,7 +22,7 @@ import nostosImage3 from '../assets/images/nostos-3.png';
 import nostosImage4 from '../assets/images/nostos-4.png';
 import nostosImage5 from '../assets/images/nostos-5.png';
 import ScrollContextProvider, { ScrollContext } from "../contexts/ScrollContext";
-import { getWindow, isWindow } from '../utils/scroll';
+import { getWindow } from '../utils/scroll';
 import { navigate } from "gatsby-link";
 
 
@@ -74,7 +72,7 @@ const GarmentItem = props => {
 const ConsumerItem = props => {
   return <div className="flex h-100">
     <div className="w-60 h-100 flex items-center justify-center">
-      <img src={props.item.src} className="shadowed" style={{ maxWidth: '80%', maxHeight: 'calc(100% - 20px)', border: '10px solid #fff', borderRadius: '20px' }} />
+      <img src={props.item.src} className="shadowed mw-100-imp" style={{ maxWidth: '80%', maxHeight: 'calc(100% - 20px)', border: '10px solid #fff', borderRadius: '20px' }} />
     </div>
     <div className="w-40 ml3 flex flex-column justify-center">
       <h1 className="st st-yellow mb5"><nobr>Our consumer</nobr></h1>
@@ -97,12 +95,6 @@ const ConsumerItem = props => {
         </div>
       </Skewer>
     </div>
-  </div>
-}
-
-function SectionBackground(props) {
-  return <div className="absolute left-0 top-0 h-100 w-100 z-1">
-    <img src={require(props.img)} className="w-100 h-100" />
   </div>
 }
 
@@ -167,13 +159,15 @@ const CoreValuesItem = props => {
 }
 
 const GarmentLeftItem = ({ item, isActive }) => {
-  return <div className="w-90 pa2 h-100 flex relative items-center overflow-hidden">
+  return <div className="w-90 pa2 h-100 flex relative items-center overflow-hidden" data-uk-lightbox>
       <div data-uk-slider className="h-100 flex flex-column justify-center" style={{ height: '50vh' }}>
         <ul className="uk-slider-items uk-child-width-1-1 h-100">
           {item.items.map((subImage, index) => isActive && <li className="garment-gallery-item" style={{ border: '0' }}>
-              <img src={'/static/' + subImage} show={isActive} onLoad={e => {
-                e.target.parentNode.style.border = '10px solid #f3e4c2';
-              }} />
+              <a href={'/static/' + subImage} className="h-100 w-100">
+                <img src={'/static/' + subImage} show={isActive} onLoad={e => {
+                  e.target.parentNode.style.border = '10px solid #f3e4c2';
+                }} />
+              </a>
             </li>
           )}
         </ul>
@@ -205,60 +199,6 @@ const GarmentLeftItem = ({ item, isActive }) => {
 const IndexPage = () => {
 
 
-  const { registerEvent, refreshScrollEvent, redirected, setRedirected } = useContext(ScrollContext);
-
-
-
-
-  // Video pause and play Handling
-
-  // const bufferRegistered = {};
-  // const [registeredViews, setRegisteredViews] = useState({});
-  
-  // const registerView = (e, fn, name) => {
-  //   if (!{ ...bufferRegistered, ...registeredViews }[name]) {
-  //     bufferRegistered[name] = {
-  //       element: e,
-  //       name,
-  //       state: {
-  //         arrived: false,
-  //         left: false
-  //       },
-  //       action: fn
-  //     }
-  //     setRegisteredViews({ ...registeredViews, ...bufferRegistered })
-  //     refreshScrollEvent();
-  //   }
-  // }
-
-  
-
-  // const getViews = () => registeredViews;
-
-  // const scrollHandler = e => {
-  //   const views = getViews();
-  //   console.log(views);
-  //   Object.keys(views).forEach(view => {
-  //     view = views[view];
-  //     if (view.element) {
-  //       const bb = view.element.getBoundingClientRect();
-
-  //       if (bb.top < window.innerHeight) view.state.arrived = true;
-  //       else view.state.arrived = false;
-
-  //       if (bb.bottom < 0) view.state.left = true;
-  //       else view.state.left = false;
-  //     }
-
-  //     view.action(view);
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   registerEvent('something', e => console.log('something'))
-  //   registerEvent('intersection-observer-like', e => scrollHandler(e))
-  // }, [])
-
   const toggleVideoOnHover = (e, target) => {
     if (e) {
       target = document.getElementById(target);
@@ -270,11 +210,6 @@ const IndexPage = () => {
       });
     }
   }
-
-
-
-
-  
 
   if (typeof window !== 'undefined') UIKit.use(icons);
 
@@ -319,12 +254,9 @@ const IndexPage = () => {
   ];
 
 
-  const [garmentsCursor, setGarmentsCursor] = useState(0);
-  const [subGarmentsCursor, setSubGarmentsCursor] = useState(0);
-  const garmentsDivision = garmentItems.reduce((acc, current) => acc + current.items.length, 0);
+  const [garmentsCursor, setGarmentsCursor] = useState(0);\
 
   const getGarmentsCursor = cursor => {
-
     let traversed = 0;
     let garmentsCursor = 0;
     while (traversed + garmentItems[garmentsCursor].items.length < cursor) {
@@ -357,6 +289,7 @@ const IndexPage = () => {
   const [whatWeOfferExpandable, setWhatWeOfferExpandable] = useState(false);
   const [nostosExpandable, setNostosExpandable] = useState(false);
 
+  // Had to do this because of icons were not loading in UIKit unless navigated
   useEffect(() => {
     if (!getWindow.redirected) {
       getWindow.redirected = true;
@@ -370,10 +303,11 @@ const IndexPage = () => {
         <Sidebar />
       </div>
 
-      <div id="container" className="w-100" id="home">
+      <div id="container" className="w-100">
 
         <Hero />
 
+        <span id="about">
         <ParallaxComponent defaultTop={500} duration={typeof window !== 'undefined' && window.innerHeight}>
           <StickySlider divisions={1}>
             <div className="z-2 standard-container top-0 left-0 h-100v overflow-hidden shadowed-down">
@@ -402,7 +336,7 @@ const IndexPage = () => {
                       <div className="subcontainer-big">
                         {/* <Skewer className="w-100 h-100" angle={10} disableY={true}> */}
                           <div>
-                            <img src={require('../assets/images/about-us.png')} style={{ maxWidth: 'unset !important', width: '100% !important', transform: 'scale(2)' }} />
+                            <img src={require('../assets/images/about-us.png')} className="mw-100-imp" style={{ transform: 'scale(2)' }} />
                           </div>
                         {/* </Skewer> */}
                       </div>
@@ -550,80 +484,80 @@ const IndexPage = () => {
             />
           </div>
         </StickySlider>
+        </span>
+        <div id="nostos-target" />
 
-        <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-dark" style={{ marginTop: '-100vh' }}>
-          <div className="absolute left-0 top-0 h-100 w-100 z-1">
-            <img src={require('../assets/images/nostos-bg.jpg')} className="w-100" />
-          </div>
-          <div className="w-100 flex items-center justify-center h-100v" ref={e => toggleVideoOnHover(e, 'nostos-video')}>
-            <div className="subcontainer flex relative z-2 items-center">
-              <div className="subcontainer-small pr3">
-                <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
-                <div name="nostos"></div>
-                <div className="bg-blur glass-morph white pa4 br5 p-margin">
-                  <BannerIcon src={require('../assets/images/icons/nostos.svg')} />
-                  <h2 className="white">Lights. Camera. Action!</h2>
-                  <p>Nostos means home in Greek. Nostalgia is a yearning for a home. The digital revolution defining the turn of the century brought significant changes which could also affect emotional perspectives.</p>
-                  
-                  <div className="overflow-hidden" style={{
-                      transition: '0.2s',
-                      height: nostosExpandable ? '280px' : '0'
-                    }}>
-                      <p>Everything we could desire in space or time is right in front of us – but there is still space for nostalgia. We are nostalgic about the lost indirectness; a connection unmediated by computers, with other people or nature. Contemporary nostalgia is not merely a desire for an existing, concrete home, but more for the abstract "homeliness".</p>
-                      <p>With every piece, the progression of nostalgia is showcased, including the complexity of emotions. It depicts that the existence of two concepts in the same plane, acknowledging the past might look like a better place to be, but it's not. Through NOSTOS, a platform that encourages it as well as questions it. The idea is to create a home to come back to, which is not defined by time and space conventions. Nostos represents a deeper appreciation for the past and a keen interest in the future. Through NOSTOS, a rich & eccentric amalgamation of textiles, silhouettes & tactile surfaces is created to get thematically transported to a better time.</p>
+        <span id="nostos">
+          <StickyComponent className="standard-container pv5 h-100v top-0 right-0 z-1 bg-dark" style={{ marginTop: '-100vh' }}>
+            <div className="absolute left-0 top-0 h-100 w-100 z-1">
+              <img src={require('../assets/images/nostos-bg.jpg')} className="w-100" />
+            </div>
+            <div className="relative w-100 flex items-center justify-center h-100v" ref={e => toggleVideoOnHover(e, 'nostos-video')}>
+              <div className="subcontainer flex relative z-2 items-center">
+                <div className="subcontainer-small pr3">
+                  <h1 className="st st-yellow" style={{ color: '#fff' }}>Nostos</h1>
+                  <div className="bg-blur glass-morph white pa4 br5 p-margin">
+                    <BannerIcon src={require('../assets/images/icons/nostos.svg')} />
+                    <h2 className="white">Lights. Camera. Action!</h2>
+                    <p>Nostos means home in Greek. Nostalgia is a yearning for a home. The digital revolution defining the turn of the century brought significant changes which could also affect emotional perspectives.</p>
+                    
+                    <div className="overflow-hidden" style={{
+                        transition: '0.2s',
+                        height: nostosExpandable ? '280px' : '0'
+                      }}>
+                        <p>Everything we could desire in space or time is right in front of us – but there is still space for nostalgia. We are nostalgic about the lost indirectness; a connection unmediated by computers, with other people or nature. Contemporary nostalgia is not merely a desire for an existing, concrete home, but more for the abstract "homeliness".</p>
+                        <p>With every piece, the progression of nostalgia is showcased, including the complexity of emotions. It depicts that the existence of two concepts in the same plane, acknowledging the past might look like a better place to be, but it's not. Through NOSTOS, a platform that encourages it as well as questions it. The idea is to create a home to come back to, which is not defined by time and space conventions. Nostos represents a deeper appreciation for the past and a keen interest in the future. Through NOSTOS, a rich & eccentric amalgamation of textiles, silhouettes & tactile surfaces is created to get thematically transported to a better time.</p>
+                    </div>
+
+                    <button className="uk-button uk-button-default" style={{ color: '#fff', marginTop: '30px', borderColor: '1px solid #fff' }} onClick={() => setNostosExpandable(!nostosExpandable)}>
+                      {nostosExpandable ? 'Hide' : 'Read more'}
+                    </button>
                   </div>
-
-                  <button className="uk-button uk-button-default" style={{ color: '#fff', marginTop: '30px', borderColor: '1px solid #fff' }} onClick={() => setNostosExpandable(!nostosExpandable)}>
-                    {nostosExpandable ? 'Hide' : 'Read more'}
-                  </button>
                 </div>
-              </div>
 
-              <div className="subcontainer-big h-100 flex items-center">
-                <div className="pa2 w-100">
-                  <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} id="nostos-video" autoPlay muted controls loop>
-                    <source src={require('../assets/videos/nostos.mp4')} type="video/mp4" />
-                  </video>
+                <div className="subcontainer-big h-100 flex items-center">
+                  <div className="pa2 w-100">
+                    <video className="br4 shadowed w-100" style={{ border: '10px solid #f3e4c2', background: 'rgba(0,0,0,0.8)' }} id="nostos-video" autoPlay muted controls loop>
+                      <source src={require('../assets/videos/nostos.mp4')} type="video/mp4" />
+                    </video>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </StickyComponent>
+          </StickyComponent>
 
-        <StickySlider
-          onChange={cursor => {
-            setGarmentsCursor(cursor);
-          }}
-          divisions={garmentItems.length}
-          name="garments"
-          style={{
-            transition: '1s',
-            background: garmentItems[garmentsCursor >= 0 && garmentsCursor < garmentItems.length ? garmentsCursor : 0].background
-          }}
-        >
-          {/* <div className="absolute left-0 top-0 h-100 w-100 z-1" id="nostos">
-            <img src={require('../assets/images/nostos-background.jpg')} className="w-100 h-100" />
-          </div> */}
-          <div className="absolute left-0" style={{ top: '-80px' }}>
-            <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000' }}>NOSTOS</h1>
-          </div>
-          <div className="subcontainer flex relative z-2 w-100 h-100">
-            <div className="w-50 h-100 flex items-center justify-center">
-                <Gallery
-                  items={garmentItems} 
-                  current={garmentsCursor}
-                  scrollLength={typeof window !== 'undefined' && window.innerHeight}
-                  Component={GarmentLeftItem}
-                  noNavigation={true}
-                />
+          <StickySlider
+            onChange={cursor => {
+              setGarmentsCursor(cursor);
+            }}
+            divisions={garmentItems.length}
+            name="garments"
+            style={{
+              transition: '1s',
+              background: garmentItems[garmentsCursor >= 0 && garmentsCursor < garmentItems.length ? garmentsCursor : 0].background
+            }}
+          >
+            <div className="absolute left-0" style={{ top: '-80px' }}>
+              <h1 style={{ fontSize: '400px', opacity: '0.1', color: '#000' }}>NOSTOS</h1>
             </div>
-            <div className="w-50 h-100v relative flex items-center justify-center">
-                {garmentItems.map((_item, index) => <GarmentItem item={_item} current={garmentsCursor} selected={index === garmentsCursor} itemIndex={index} />)}
+            <div className="subcontainer flex relative z-2 w-100 h-100">
+              <div className="w-50 h-100 flex items-center justify-center">
+                  <Gallery
+                    items={garmentItems} 
+                    current={garmentsCursor}
+                    scrollLength={typeof window !== 'undefined' && window.innerHeight}
+                    Component={GarmentLeftItem}
+                    noNavigation={true}
+                  />
+              </div>
+              <div className="w-50 h-100v relative flex items-center justify-center">
+                  {garmentItems.map((_item, index) => <GarmentItem item={_item} current={garmentsCursor} selected={index === garmentsCursor} itemIndex={index} />)}
+              </div>
             </div>
-          </div>
-        </StickySlider>
+          </StickySlider>
+        </span>
 
-        <div className="standard-container bg-white z-6" style={{ minHeight: '60vh' }}>
+        <div className="standard-container bg-white z-6" style={{ minHeight: '60vh' }} id="contact">
           <div className="absolute left-0 top-0 h-100 w-100 z-1">
             <img src={require('../assets/images/white-print.jpg')} className="w-100 h-100" />
           </div>
