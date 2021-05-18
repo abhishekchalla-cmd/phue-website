@@ -254,7 +254,7 @@ const IndexPage = () => {
   ];
 
 
-  const [garmentsCursor, setGarmentsCursor] = useState(0);\
+  const [garmentsCursor, setGarmentsCursor] = useState(0);
 
   const getGarmentsCursor = cursor => {
     let traversed = 0;
