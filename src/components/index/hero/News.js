@@ -6,26 +6,8 @@ let timeout;
 
 const News = props => {
 
-    const [news, setNews] = useState([
-        {
-            title: 'Lorem ipsum',
-            subtitle: 'Lorem ipsum dolor sit amet consectus',
-            link: '#',
-            coverImage: 'https://cocainemodels.com/wp-content/uploads/2019/03/modelagentur-geld-bezahlen-verdienen-tipps-geheim-kosten-serioes-1030x472.jpg'
-        },
-        {
-            title: 'Image 2',
-            subtitle: 'Some other description fuck you fuck you',
-            link: '#',
-            coverImage: 'https://www.thenationalnews.com/image/policy:1.719414:1552558388/shudu.jpg?f=16x9&w=1200&$p$f$w=ea78e20'
-        },
-        {
-            title: 'Image 3',
-            subtitle: 'Fuck you fuck you',
-            link: '#',
-            coverImage: 'https://d194ip2226q57d.cloudfront.net/images/Hair-Trends_Averie-Woodard.original.jpg'
-        }
-    ]);
+    const { news: newsData } = require('../../../data.json');
+    const [news, setNews] = useState(newsData);
     const [index, setIndex] = useState(0);
 
     const [title, setTitle] = useState('');

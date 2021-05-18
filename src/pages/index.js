@@ -72,7 +72,7 @@ const GarmentItem = props => {
 const ConsumerItem = props => {
   return <div className="flex h-100">
     <div className="w-60 h-100 flex items-center justify-center">
-      <img src={props.item.src} className="shadowed mw-100-imp" style={{ maxWidth: '80%', maxHeight: 'calc(100% - 20px)', border: '10px solid #fff', borderRadius: '20px' }} />
+      <img src={props.item.src} className="shadowed mw-80-imp" style={{ maxHeight: 'calc(100% - 20px)', border: '10px solid #fff', borderRadius: '20px' }} />
     </div>
     <div className="w-40 ml3 flex flex-column justify-center">
       <h1 className="st st-yellow mb5"><nobr>Our consumer</nobr></h1>
